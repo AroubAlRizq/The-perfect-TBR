@@ -26,21 +26,59 @@ git clone <your-repo-url> readerprint
 cd readerprint
 pip install -r requirements.txt
 
-python scripts/make_seed.py              # build the starter corpus
-python -m readerprint.corpus load        # load it into SQLite
+python build.py --quick                  # corpus, about ten minutes
 python app.py                            # http://127.0.0.1:8000
 ```
 
-The app works offline at this point, using placeholder style values. To
-replace them with real measurements:
+`build.py` is the only command you need. It runs every stage in order and
+records what finished, so an interrupted run resumes rather than restarting.
 
 ```bash
-python -m readerprint.corpus enrich      # fetches metadata and public domain texts
-python -m readerprint.corpus status      # how much of the corpus is measured
+python build.py --quick     a few hundred measured books, ~10 minutes
+python build.py             a few thousand measured books plus broad metadata
+python build.py --full      everything available; hours, and tens of gigabytes
+python build.py --status    what has completed so far
 ```
 
-Enrichment is rate-limited on purpose and takes a while. It is resumable —
-stop it and run it again.
+### The stages
+
+| Stage | Source | What it gives you |
+|---|---|---|
+| `seed` | bundled | 90 curated books, instantly |
+| `gutenberg` | Project Gutenberg | public domain texts, **measured for real** |
+| `openlibrary` | monthly dumps | metadata for tens of thousands of books |
+| `ratings` | Open Library | aggregate reader ratings |
+| `report` | — | what the corpus now contains |
+
+Gutenberg runs before Open Library on purpose. It is the only source that
+produces measured books, and measured books are what make everything
+downstream work. Open Library adds breadth, but every book it contributes
+arrives provisional until someone measures it.
+
+Run a single stage, or tune one:
+
+```bash
+python build.py --stages gutenberg --gutenberg-limit 2000
+python build.py --stages openlibrary --promote-limit 50000
+python build.py --reset                  # start over
+```
+
+### Going large
+
+For tens of thousands of Gutenberg texts, mirror the archive first. It is
+far faster than HTTP and much kinder to a charity running on donated
+bandwidth:
+
+```bash
+rsync -av --del ftp@aleph.gutenberg.org::gutenberg-epub /your/mirror
+python build.py --stages gutenberg --mirror /your/mirror --gutenberg-limit 0
+```
+
+Open Library asks that bulk users take the monthly dumps rather than hit the
+search API, which is what the `openlibrary` stage does. The editions dump is
+around 9 GB compressed; nothing is decompressed to disk and no dump is held
+in memory, so the stage runs in a few hundred megabytes regardless. Dumps are
+deleted after ingestion unless you pass `--keep-dumps`.
 
 ---
 
@@ -153,8 +191,12 @@ snippet at display time, or prose you paste in yourself, which stays local.
 
 ## Known limitations
 
-- The corpus is 90 books. It needs to be much larger to be genuinely useful.
-- Style values are placeholders until `corpus enrich` has run, and are
+- The corpus will be lopsided for a while: thousands of measured public
+  domain classics, but contemporary titles arrive as metadata only. Copyright
+  makes this unavoidable — nobody publishes prose measurements, and computing
+  them needs the text. The classics still earn their place by calibrating the
+  style space, so a single pasted page from a 2024 novel lands accurately.
+- Style values are placeholders until a book has been measured, and are
   labelled "not yet measured" everywhere they appear.
 - POV and tense detection use lexical heuristics, not a POS tagger. They are
   reliable on 300+ words of narration and shaky below that.
@@ -170,8 +212,13 @@ snippet at display time, or prose you paste in yourself, which stays local.
 ## Layout
 
 ```
+build.py                   corpus builder — the one file to run
 app.py                     FastAPI server and API
 readerprint/
+  bulk/
+    download.py            resumable downloads, progress, pipeline state
+    openlibrary.py         dump streaming, fiction filter, edition scoring
+    gutenberg.py           catalogue, text retrieval, measurement
   style.py                 prose measurement
   imprint.py               publisher tier and provenance
   reviews.py               informativeness scoring, weighted ratings
@@ -197,10 +244,16 @@ committing measured values helps everyone.
 ## Tests
 
 ```bash
-python tests/test_readerprint.py
+python tests/test_readerprint.py     # core: style, imprint, reviews, import, recommender
+python tests/test_bulk.py            # bulk pipeline, against offline fixtures
 ```
 
-Forty-six checks covering prose measurement, publisher classification, review
+The bulk tests build small files in the real Open Library and Gutenberg
+formats and run the parsers over them, so they cover format quirks, the
+fiction filters, edition scoring and streaming behaviour without depending on
+a multi-gigabyte download.
+
+The core suite has forty-six checks covering prose measurement, publisher classification, review
 ranking, CSV import, the recommender, and storage — including guards on two
 bugs found during the build: a stored value shadowing a method of the same
 name, and DNF penalties once applying in the wrong direction.

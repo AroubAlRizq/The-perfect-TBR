@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Readerprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<header class="bar">
+  <a class="mark" href="#top">
+    <span class="mark-name">Readerprint</span>
+    <span class="mark-sub">prose before hype</span>
+  </a>
+  <nav class="bar-nav">
+    <button class="tab is-active" data-view="measure">Measure</button>
+    <button class="tab" data-view="shelf">Shelf <span class="tab-count" id="shelfCount">0</span></button>
+    <button class="tab" data-view="recommend">Recommendations</button>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ══ MEASURE ══════════════════════════════════════════════════════ -->
+<section class="view is-active" data-view="measure">
+
+  <div class="hero">
+    <div class="hero-intro">
+      <p class="eyebrow">The test that matters</p>
+      <h1>Read one page<br>before you trust<br>the reviews.</h1>
+      <p class="lede">
+        Paste any passage — a sample chapter, a preview, something a friend
+        insists you'll love. Readerprint measures what the prose actually does,
+        so the decision is yours rather than the blurb's.
+      </p>
+    </div>
+
+    <div class="specimen" id="specimen">
+      <div class="specimen-head">
+        <span class="specimen-label">Specimen</span>
+        <button class="ghost" id="clearSpecimen">Clear</button>
+      </div>
+      <textarea id="specimenText" class="specimen-body" spellcheck="false"
+        placeholder="Paste a few paragraphs here. Around three hundred words gives a reliable reading."></textarea>
+      <div class="specimen-foot">
+        <span class="counter" id="wordCounter">0 words</span>
+        <button class="solid" id="measureBtn">Measure this prose</button>
+      </div>
+    </div>
+
+    <aside class="rail" id="rail" hidden>
+      <div class="rail-verdict" id="railVerdict"></div>
+      <div class="rail-metrics" id="railMetrics"></div>
+    </aside>
+  </div>
+
+  <p class="hint" id="measureHint">
+    Nothing you paste is stored unless you attach it to a book on your shelf.
+  </p>
+
+  <div class="ledger">
+    <div class="ledger-item">
+      <h3>Density</h3>
+      <p>
+        Sentence length and variation, subordination, and how much of the page
+        is dialogue, combined into one number. It says how much work the prose
+        asks of you — not whether it is any good. Plain is a preference, not a
+        failing.
+      </p>
+    </div>
+    <div class="ledger-item">
+      <h3>Stock phrases</h3>
+      <p>
+        How often the writing reaches for a phrase that has been used a
+        thousand times. Breath hitching, jaws ticking, stomachs dropping. This
+        is the measurement that catches what a Wattpad label was only ever
+        guessing at.
+      </p>
+    </div>
+    <div class="ledger-item">
+      <h3>Narration</h3>
+      <p>
+        Person and tense, read from the narration with dialogue stripped out
+        first. First-person present divides readers far more sharply than
+        first person alone, so both are reported.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SHELF ════════════════════════════════════════════════════════ -->
+<section class="view" data-view="shelf">
+  <div class="split">
+
+    <div class="col-narrow">
+      <div class="panel">
+        <h2 class="panel-title">Bring your history</h2>
+        <p class="panel-note">
+          Goodreads and StoryGraph both export your library as a CSV.
+          One upload beats typing two hundred titles.
+        </p>
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="csvInput" accept=".csv,text/csv" hidden>
+          <span class="dropzone-main">Choose a CSV export</span>
+          <span class="dropzone-sub">or drag one here</span>
+        </label>
+        <div class="import-report" id="importReport" hidden></div>
+        <details class="how">
+          <summary>Where do I find the export?</summary>
+          <p><strong>Goodreads:</strong> My Books → Import and Export → Export Library.</p>
+          <p><strong>StoryGraph:</strong> Manage Account → Export StoryGraph Library.</p>
+        </details>
+      </div>
+
+      <div class="panel">
+        <h2 class="panel-title">Add one by hand</h2>
+        <input type="search" id="bookSearch" class="field"
+               placeholder="Search the corpus by title or author" autocomplete="off">
+        <div class="results" id="searchResults"></div>
+      </div>
+
+      <div class="panel" id="fingerprintPanel" hidden>
+        <h2 class="panel-title">Your readerprint</h2>
+        <div id="fingerprint"></div>
+      </div>
+    </div>
+
+    <div class="col-wide">
+      <div class="section-head">
+        <h2>Your shelf</h2>
+        <p class="section-note" id="shelfNote">Nothing here yet.</p>
+      </div>
+      <div id="shelfList" class="shelf-list"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ RECOMMENDATIONS ══════════════════════════════════════════════ -->
+<section class="view" data-view="recommend">
+  <div class="section-head wide">
+    <h2>Recommendations</h2>
+    <p class="section-note">
+      Matched on measured prose and subject, pushed away from what you abandoned,
+      and spread out so this isn't one book twelve times.
+    </p>
+  </div>
+
+  <div class="filters">
+    <label class="filter">
+      <span>Narration</span>
+      <select id="filterPov">
+        <option value="">Any</option>
+        <option value="first">First person</option>
+        <option value="third">Third person</option>
+        <option value="second">Second person</option>
+        <option value="first,third">First or third</option>
+      </select>
+    </label>
+    <label class="filter">
+      <span>Length ceiling</span>
+      <select id="filterLength">
+        <option value="">No limit</option>
+        <option value="60000">Under 60k words</option>
+        <option value="110000">Under 110k words</option>
+        <option value="180000">Under 180k words</option>
+      </select>
+    </label>
+    <label class="filter">
+      <span>Spread</span>
+      <select id="filterDiversity">
+        <option value="0.15">Close to my taste</option>
+        <option value="0.3" selected>Balanced</option>
+        <option value="0.55">Push me wider</option>
+      </select>
+    </label>
+    <button class="solid" id="refreshRecs">Update</button>
+  </div>
+
+  <div id="recsMessage" class="empty-state"></div>
+  <div id="recsList" class="rec-grid"></div>
+</section>
+
+</main>
+
+<!-- ══ BOOK DRAWER ══════════════════════════════════════════════════ -->
+<div class="drawer-scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="Book detail">
+  <button class="drawer-close" id="drawerClose" aria-label="Close">Close</button>
+  <div id="drawerBody"></div>
+</aside>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

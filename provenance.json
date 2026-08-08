@@ -1,0 +1,44 @@
+{
+  "_readme": [
+    "Curated web-serial and fanfiction provenance. This replaces the title-matching",
+    "scraper: entries are added by hand with a citation, so the app only discloses",
+    "what it can support. Origin is context, not a verdict — several of these books",
+    "were substantially rewritten and edited before print.",
+    "Add entries as: \"lowercase title|lowercase author\": {\"platform\", \"note\", \"source\"}"
+  ],
+  "after|anna todd": {
+    "platform": "Wattpad",
+    "note": "Serialised on Wattpad as One Direction fan fiction before being revised for print.",
+    "source": "Widely reported at acquisition; acknowledged by the author and publisher."
+  },
+  "the kissing booth|beth reekles": {
+    "platform": "Wattpad",
+    "note": "Written and posted on Wattpad while the author was fifteen, then acquired.",
+    "source": "Author interviews and publisher materials."
+  },
+  "fifty shades of grey|e. l. james": {
+    "platform": "FanFiction.net",
+    "note": "Began as Twilight fan fiction titled Master of the Universe, later rewritten with names and details changed.",
+    "source": "Extensively documented; acknowledged by the author."
+  },
+  "the love hypothesis|ali hazelwood": {
+    "platform": "Archive of Our Own",
+    "note": "Developed from Star Wars fan fiction, substantially rewritten for publication.",
+    "source": "Acknowledged by the author."
+  },
+  "beautiful bastard|christina lauren": {
+    "platform": "FanFiction.net",
+    "note": "Originated as Twilight fan fiction before revision and acquisition.",
+    "source": "Acknowledged by the authors."
+  },
+  "chasing red|isabelle ronin": {
+    "platform": "Wattpad",
+    "note": "Serialised on Wattpad to a large readership before print publication.",
+    "source": "Publisher materials."
+  },
+  "gabriel's inferno|sylvain reynard": {
+    "platform": "FanFiction.net",
+    "note": "Originated as Twilight fan fiction.",
+    "source": "Widely documented at publication."
+  }
+}

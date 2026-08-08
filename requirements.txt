@@ -1,0 +1,47 @@
+# Readerprint dependencies
+#
+#   pip install -r requirements.txt
+#
+# Seven packages, all pure-Python or with prebuilt wheels on Windows, macOS
+# and Linux. There is no compiler step and nothing to configure.
+#
+# Requires Python 3.10 or newer.
+#
+# Upper bounds are set at the next major version. They are there so a
+# breaking release two years from now does not quietly break a clone of this
+# repo, not because any specific version is known to be a problem.
+
+# ── Web layer ───────────────────────────────────────────────────────────
+# app.py serves both the JSON API and the interface.
+fastapi>=0.110,<1.0
+
+# The server FastAPI runs on. Plain rather than uvicorn[standard]: the extras
+# pull in uvloop and httptools, which need compiling and are a common source
+# of install failures on Windows. A local pilot does not need the speed.
+uvicorn>=0.27,<1.0
+
+# Request and response models throughout app.py.
+pydantic>=2.6,<3.0
+
+# Not imported anywhere, and still required. FastAPI needs it to parse
+# multipart form data, which is how the Goodreads CSV upload arrives. Without
+# it, POST /api/import fails at runtime rather than at import time — this
+# exact omission broke the upload endpoint during development.
+python-multipart>=0.0.9
+
+# ── Data ────────────────────────────────────────────────────────────────
+# Every outbound HTTP call: Open Library, Google Books, Gutenberg, and the
+# resumable bulk downloader.
+requests>=2.31,<3.0
+
+# Vector maths in the recommender.
+numpy>=1.26,<3.0
+
+# TF-IDF, SVD and normalisation for the semantic half of each book vector.
+# Floor is 1.5 because earlier releases do not support numpy 2.
+scikit-learn>=1.5,<2.0
+
+# ── Not required ────────────────────────────────────────────────────────
+# The database is SQLite, which ships with Python.
+# Both test suites run standalone: python tests/test_readerprint.py
+# pytest works too if you prefer it, but nothing depends on it.

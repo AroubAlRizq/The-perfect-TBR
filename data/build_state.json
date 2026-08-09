@@ -1,0 +1,22 @@
+{
+ "seed": {
+  "complete": true,
+  "updated": "2026-08-08 23:49:55",
+  "added": 90
+ },
+ "gutenberg": {
+  "complete": false,
+  "updated": "2026-08-08 23:55:08",
+  "catalogue": 25791,
+  "measured": 295,
+  "skipped": 5,
+  "failed": 0,
+  "already_done": 0
+ },
+ "report": {
+  "complete": true,
+  "updated": "2026-08-08 23:55:08",
+  "books": 359,
+  "measured": 288
+ }
+}

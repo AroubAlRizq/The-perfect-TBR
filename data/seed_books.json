@@ -1,0 +1,3589 @@
+[
+ {
+  "title": "Pride and Prejudice",
+  "author": "Jane Austen",
+  "year": 1813,
+  "subjects": [
+   "classics",
+   "romance",
+   "social satire",
+   "regency"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 1342,
+  "provisional": true
+ },
+ {
+  "title": "Jane Eyre",
+  "author": "Charlotte Brontë",
+  "year": 1847,
+  "subjects": [
+   "classics",
+   "gothic",
+   "bildungsroman"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": 1260,
+  "provisional": true
+ },
+ {
+  "title": "Wuthering Heights",
+  "author": "Emily Brontë",
+  "year": 1847,
+  "subjects": [
+   "classics",
+   "gothic",
+   "frame narrative"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": 768,
+  "provisional": true
+ },
+ {
+  "title": "Frankenstein",
+  "author": "Mary Shelley",
+  "year": 1818,
+  "subjects": [
+   "classics",
+   "gothic",
+   "science fiction",
+   "frame narrative"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": 84,
+  "provisional": true
+ },
+ {
+  "title": "Dracula",
+  "author": "Bram Stoker",
+  "year": 1897,
+  "subjects": [
+   "classics",
+   "gothic",
+   "horror",
+   "epistolary"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 345,
+  "provisional": true
+ },
+ {
+  "title": "The Strange Case of Dr Jekyll and Mr Hyde",
+  "author": "Robert Louis Stevenson",
+  "year": 1886,
+  "subjects": [
+   "classics",
+   "gothic",
+   "novella"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 43,
+  "provisional": true
+ },
+ {
+  "title": "Moby-Dick",
+  "author": "Herman Melville",
+  "year": 1851,
+  "subjects": [
+   "classics",
+   "sea",
+   "philosophical",
+   "digressive"
+  ],
+  "style": {
+   "prose_density": 84,
+   "mean_sentence_length": 31,
+   "sentence_length_sd": 19,
+   "ornament_index": 66,
+   "dialogue_share": 0.08,
+   "cliche_rate": 0.4,
+   "subordination_rate": 1.9,
+   "grade_level": 14.0,
+   "lexical_variety": 0.56,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "dense",
+  "gutenberg_id": 2701,
+  "provisional": true
+ },
+ {
+  "title": "Great Expectations",
+  "author": "Charles Dickens",
+  "year": 1861,
+  "subjects": [
+   "classics",
+   "bildungsroman",
+   "victorian"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": 1400,
+  "provisional": true
+ },
+ {
+  "title": "A Tale of Two Cities",
+  "author": "Charles Dickens",
+  "year": 1859,
+  "subjects": [
+   "classics",
+   "historical",
+   "revolution"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": 98,
+  "provisional": true
+ },
+ {
+  "title": "The Picture of Dorian Gray",
+  "author": "Oscar Wilde",
+  "year": 1890,
+  "subjects": [
+   "classics",
+   "gothic",
+   "aestheticism"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": 174,
+  "provisional": true
+ },
+ {
+  "title": "The Adventures of Sherlock Holmes",
+  "author": "Arthur Conan Doyle",
+  "year": 1892,
+  "subjects": [
+   "classics",
+   "mystery",
+   "short stories",
+   "detective"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": 1661,
+  "provisional": true
+ },
+ {
+  "title": "The Hound of the Baskervilles",
+  "author": "Arthur Conan Doyle",
+  "year": 1902,
+  "subjects": [
+   "classics",
+   "mystery",
+   "detective",
+   "gothic"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": 2852,
+  "provisional": true
+ },
+ {
+  "title": "Heart of Darkness",
+  "author": "Joseph Conrad",
+  "year": 1899,
+  "subjects": [
+   "classics",
+   "colonialism",
+   "novella",
+   "frame narrative"
+  ],
+  "style": {
+   "prose_density": 84,
+   "mean_sentence_length": 31,
+   "sentence_length_sd": 19,
+   "ornament_index": 66,
+   "dialogue_share": 0.08,
+   "cliche_rate": 0.4,
+   "subordination_rate": 1.9,
+   "grade_level": 14.0,
+   "lexical_variety": 0.56,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "dense",
+  "gutenberg_id": 219,
+  "provisional": true
+ },
+ {
+  "title": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "year": 1925,
+  "subjects": [
+   "classics",
+   "jazz age",
+   "american",
+   "tragedy"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": 64317,
+  "provisional": true
+ },
+ {
+  "title": "Alice's Adventures in Wonderland",
+  "author": "Lewis Carroll",
+  "year": 1865,
+  "subjects": [
+   "classics",
+   "children",
+   "nonsense",
+   "fantasy"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": 11,
+  "provisional": true
+ },
+ {
+  "title": "The Time Machine",
+  "author": "H. G. Wells",
+  "year": 1895,
+  "subjects": [
+   "classics",
+   "science fiction",
+   "novella"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 35,
+  "provisional": true
+ },
+ {
+  "title": "The War of the Worlds",
+  "author": "H. G. Wells",
+  "year": 1898,
+  "subjects": [
+   "classics",
+   "science fiction",
+   "invasion"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 36,
+  "provisional": true
+ },
+ {
+  "title": "Crime and Punishment",
+  "author": "Fyodor Dostoevsky",
+  "year": 1866,
+  "subjects": [
+   "classics",
+   "russian",
+   "psychological",
+   "translated"
+  ],
+  "style": {
+   "prose_density": 84,
+   "mean_sentence_length": 31,
+   "sentence_length_sd": 19,
+   "ornament_index": 66,
+   "dialogue_share": 0.08,
+   "cliche_rate": 0.4,
+   "subordination_rate": 1.9,
+   "grade_level": 14.0,
+   "lexical_variety": 0.56,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "dense",
+  "gutenberg_id": 2554,
+  "provisional": true
+ },
+ {
+  "title": "Anna Karenina",
+  "author": "Leo Tolstoy",
+  "year": 1878,
+  "subjects": [
+   "classics",
+   "russian",
+   "translated",
+   "domestic"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": 1399,
+  "provisional": true
+ },
+ {
+  "title": "The Metamorphosis",
+  "author": "Franz Kafka",
+  "year": 1915,
+  "subjects": [
+   "classics",
+   "absurdism",
+   "novella",
+   "translated"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 5200,
+  "provisional": true
+ },
+ {
+  "title": "Dubliners",
+  "author": "James Joyce",
+  "year": 1914,
+  "subjects": [
+   "classics",
+   "short stories",
+   "irish",
+   "modernism"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 2814,
+  "provisional": true
+ },
+ {
+  "title": "The Turn of the Screw",
+  "author": "Henry James",
+  "year": 1898,
+  "subjects": [
+   "classics",
+   "ghost story",
+   "novella",
+   "unreliable narrator"
+  ],
+  "style": {
+   "prose_density": 84,
+   "mean_sentence_length": 31,
+   "sentence_length_sd": 19,
+   "ornament_index": 66,
+   "dialogue_share": 0.08,
+   "cliche_rate": 0.4,
+   "subordination_rate": 1.9,
+   "grade_level": 14.0,
+   "lexical_variety": 0.56,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "dense",
+  "gutenberg_id": 209,
+  "provisional": true
+ },
+ {
+  "title": "The Age of Innocence",
+  "author": "Edith Wharton",
+  "year": 1920,
+  "subjects": [
+   "classics",
+   "society",
+   "american"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": 541,
+  "provisional": true
+ },
+ {
+  "title": "Emma",
+  "author": "Jane Austen",
+  "year": 1815,
+  "subjects": [
+   "classics",
+   "romance",
+   "social satire"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 158,
+  "provisional": true
+ },
+ {
+  "title": "Persuasion",
+  "author": "Jane Austen",
+  "year": 1817,
+  "subjects": [
+   "classics",
+   "romance",
+   "second chance"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 105,
+  "provisional": true
+ },
+ {
+  "title": "Treasure Island",
+  "author": "Robert Louis Stevenson",
+  "year": 1883,
+  "subjects": [
+   "classics",
+   "adventure",
+   "pirates",
+   "children"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": 120,
+  "provisional": true
+ },
+ {
+  "title": "The Adventures of Huckleberry Finn",
+  "author": "Mark Twain",
+  "year": 1884,
+  "subjects": [
+   "classics",
+   "american",
+   "vernacular",
+   "river"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": 76,
+  "provisional": true
+ },
+ {
+  "title": "Little Women",
+  "author": "Louisa May Alcott",
+  "year": 1868,
+  "subjects": [
+   "classics",
+   "domestic",
+   "sisters",
+   "american"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 514,
+  "provisional": true
+ },
+ {
+  "title": "The Scarlet Letter",
+  "author": "Nathaniel Hawthorne",
+  "year": 1850,
+  "subjects": [
+   "classics",
+   "american",
+   "puritan",
+   "allegory"
+  ],
+  "style": {
+   "prose_density": 84,
+   "mean_sentence_length": 31,
+   "sentence_length_sd": 19,
+   "ornament_index": 66,
+   "dialogue_share": 0.08,
+   "cliche_rate": 0.4,
+   "subordination_rate": 1.9,
+   "grade_level": 14.0,
+   "lexical_variety": 0.56,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "dense",
+  "gutenberg_id": 33,
+  "provisional": true
+ },
+ {
+  "title": "Madame Bovary",
+  "author": "Gustave Flaubert",
+  "year": 1856,
+  "subjects": [
+   "classics",
+   "french",
+   "translated",
+   "provincial"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": 2413,
+  "provisional": true
+ },
+ {
+  "title": "The Count of Monte Cristo",
+  "author": "Alexandre Dumas",
+  "year": 1844,
+  "subjects": [
+   "classics",
+   "adventure",
+   "revenge",
+   "translated"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 1184,
+  "provisional": true
+ },
+ {
+  "title": "Anne of Green Gables",
+  "author": "L. M. Montgomery",
+  "year": 1908,
+  "subjects": [
+   "classics",
+   "children",
+   "canadian",
+   "orphan"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": 45,
+  "provisional": true
+ },
+ {
+  "title": "The Secret Garden",
+  "author": "Frances Hodgson Burnett",
+  "year": 1911,
+  "subjects": [
+   "classics",
+   "children",
+   "garden",
+   "recovery"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": 113,
+  "provisional": true
+ },
+ {
+  "title": "The Wonderful Wizard of Oz",
+  "author": "L. Frank Baum",
+  "year": 1900,
+  "subjects": [
+   "classics",
+   "children",
+   "fantasy",
+   "quest"
+  ],
+  "style": {
+   "prose_density": 22,
+   "mean_sentence_length": 11,
+   "sentence_length_sd": 6,
+   "ornament_index": 12,
+   "dialogue_share": 0.28,
+   "cliche_rate": 0.5,
+   "subordination_rate": 0.4,
+   "grade_level": 5.5,
+   "lexical_variety": 0.42,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "spare",
+  "gutenberg_id": 55,
+  "provisional": true
+ },
+ {
+  "title": "The Mysterious Affair at Styles",
+  "author": "Agatha Christie",
+  "year": 1920,
+  "subjects": [
+   "classics",
+   "mystery",
+   "detective",
+   "country house"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": 863,
+  "provisional": true
+ },
+ {
+  "title": "Twenty Thousand Leagues Under the Sea",
+  "author": "Jules Verne",
+  "year": 1870,
+  "subjects": [
+   "classics",
+   "adventure",
+   "science fiction",
+   "translated"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 164,
+  "provisional": true
+ },
+ {
+  "title": "The Jungle Book",
+  "author": "Rudyard Kipling",
+  "year": 1894,
+  "subjects": [
+   "classics",
+   "children",
+   "animals",
+   "short stories"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 236,
+  "provisional": true
+ },
+ {
+  "title": "Ethan Frome",
+  "author": "Edith Wharton",
+  "year": 1911,
+  "subjects": [
+   "classics",
+   "novella",
+   "rural",
+   "tragedy"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 4517,
+  "provisional": true
+ },
+ {
+  "title": "The Awakening",
+  "author": "Kate Chopin",
+  "year": 1899,
+  "subjects": [
+   "classics",
+   "american",
+   "feminist",
+   "louisiana"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": 160,
+  "provisional": true
+ },
+ {
+  "title": "Sense and Sensibility",
+  "author": "Jane Austen",
+  "year": 1811,
+  "subjects": [
+   "classics",
+   "romance",
+   "sisters",
+   "regency"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": 161,
+  "provisional": true
+ },
+ {
+  "title": "Never Let Me Go",
+  "author": "Kazuo Ishiguro",
+  "year": 2005,
+  "subjects": [
+   "literary",
+   "science fiction",
+   "boarding school",
+   "unreliable narrator"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Remains of the Day",
+  "author": "Kazuo Ishiguro",
+  "year": 1989,
+  "subjects": [
+   "literary",
+   "butler",
+   "restraint",
+   "england"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Beloved",
+  "author": "Toni Morrison",
+  "year": 1987,
+  "subjects": [
+   "literary",
+   "american",
+   "haunting",
+   "slavery"
+  ],
+  "style": {
+   "prose_density": 84,
+   "mean_sentence_length": 31,
+   "sentence_length_sd": 19,
+   "ornament_index": 66,
+   "dialogue_share": 0.08,
+   "cliche_rate": 0.4,
+   "subordination_rate": 1.9,
+   "grade_level": 14.0,
+   "lexical_variety": 0.56,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "dense",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Road",
+  "author": "Cormac McCarthy",
+  "year": 2006,
+  "subjects": [
+   "literary",
+   "post-apocalyptic",
+   "father and son",
+   "minimal punctuation"
+  ],
+  "style": {
+   "prose_density": 22,
+   "mean_sentence_length": 11,
+   "sentence_length_sd": 6,
+   "ornament_index": 12,
+   "dialogue_share": 0.28,
+   "cliche_rate": 0.5,
+   "subordination_rate": 0.4,
+   "grade_level": 5.5,
+   "lexical_variety": 0.42,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "spare",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Blood Meridian",
+  "author": "Cormac McCarthy",
+  "year": 1985,
+  "subjects": [
+   "literary",
+   "western",
+   "violence",
+   "biblical register"
+  ],
+  "style": {
+   "prose_density": 84,
+   "mean_sentence_length": 31,
+   "sentence_length_sd": 19,
+   "ornament_index": 66,
+   "dialogue_share": 0.08,
+   "cliche_rate": 0.4,
+   "subordination_rate": 1.9,
+   "grade_level": 14.0,
+   "lexical_variety": 0.56,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "dense",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "A Little Life",
+  "author": "Hanya Yanagihara",
+  "year": 2015,
+  "subjects": [
+   "literary",
+   "friendship",
+   "trauma",
+   "long"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Normal People",
+  "author": "Sally Rooney",
+  "year": 2018,
+  "subjects": [
+   "literary",
+   "irish",
+   "relationship",
+   "no quotation marks"
+  ],
+  "style": {
+   "prose_density": 22,
+   "mean_sentence_length": 11,
+   "sentence_length_sd": 6,
+   "ornament_index": 12,
+   "dialogue_share": 0.28,
+   "cliche_rate": 0.5,
+   "subordination_rate": 0.4,
+   "grade_level": 5.5,
+   "lexical_variety": 0.42,
+   "pov": "third",
+   "tense": "present",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "spare",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Conversations with Friends",
+  "author": "Sally Rooney",
+  "year": 2017,
+  "subjects": [
+   "literary",
+   "irish",
+   "relationship",
+   "no quotation marks"
+  ],
+  "style": {
+   "prose_density": 22,
+   "mean_sentence_length": 11,
+   "sentence_length_sd": 6,
+   "ornament_index": 12,
+   "dialogue_share": 0.28,
+   "cliche_rate": 0.5,
+   "subordination_rate": 0.4,
+   "grade_level": 5.5,
+   "lexical_variety": 0.42,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "spare",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Secret History",
+  "author": "Donna Tartt",
+  "year": 1992,
+  "subjects": [
+   "literary",
+   "dark academia",
+   "campus",
+   "murder"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Goldfinch",
+  "author": "Donna Tartt",
+  "year": 2013,
+  "subjects": [
+   "literary",
+   "art",
+   "long",
+   "bildungsroman"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Piranesi",
+  "author": "Susanna Clarke",
+  "year": 2020,
+  "subjects": [
+   "fantasy",
+   "literary",
+   "epistolary",
+   "labyrinth"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "first",
+   "tense": "present",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Jonathan Strange & Mr Norrell",
+  "author": "Susanna Clarke",
+  "year": 2004,
+  "subjects": [
+   "fantasy",
+   "alternate history",
+   "footnotes",
+   "long"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Left Hand of Darkness",
+  "author": "Ursula K. Le Guin",
+  "year": 1969,
+  "subjects": [
+   "science fiction",
+   "anthropological",
+   "gender",
+   "cold"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Dispossessed",
+  "author": "Ursula K. Le Guin",
+  "year": 1974,
+  "subjects": [
+   "science fiction",
+   "anarchism",
+   "physics",
+   "dual timeline"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "A Wizard of Earthsea",
+  "author": "Ursula K. Le Guin",
+  "year": 1968,
+  "subjects": [
+   "fantasy",
+   "coming of age",
+   "islands",
+   "names"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Klara and the Sun",
+  "author": "Kazuo Ishiguro",
+  "year": 2021,
+  "subjects": [
+   "literary",
+   "science fiction",
+   "artificial intelligence",
+   "child narrator"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Station Eleven",
+  "author": "Emily St. John Mandel",
+  "year": 2014,
+  "subjects": [
+   "literary",
+   "post-apocalyptic",
+   "theatre",
+   "multiple timelines"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Fifth Season",
+  "author": "N. K. Jemisin",
+  "year": 2015,
+  "subjects": [
+   "fantasy",
+   "science fiction",
+   "second person",
+   "geology"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "second",
+   "tense": "present",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Circe",
+  "author": "Madeline Miller",
+  "year": 2018,
+  "subjects": [
+   "mythology",
+   "retelling",
+   "greek",
+   "witch"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Song of Achilles",
+  "author": "Madeline Miller",
+  "year": 2011,
+  "subjects": [
+   "mythology",
+   "retelling",
+   "greek",
+   "romance"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Gideon the Ninth",
+  "author": "Tamsyn Muir",
+  "year": 2019,
+  "subjects": [
+   "science fantasy",
+   "necromancy",
+   "voice-driven",
+   "locked room"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Convenience Store Woman",
+  "author": "Sayaka Murata",
+  "year": 2016,
+  "subjects": [
+   "literary",
+   "japanese",
+   "translated",
+   "novella"
+  ],
+  "style": {
+   "prose_density": 22,
+   "mean_sentence_length": 11,
+   "sentence_length_sd": 6,
+   "ornament_index": 12,
+   "dialogue_share": 0.28,
+   "cliche_rate": 0.5,
+   "subordination_rate": 0.4,
+   "grade_level": 5.5,
+   "lexical_variety": 0.42,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "spare",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Vegetarian",
+  "author": "Han Kang",
+  "year": 2007,
+  "subjects": [
+   "literary",
+   "korean",
+   "translated",
+   "three parts"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "mixed",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Kafka on the Shore",
+  "author": "Haruki Murakami",
+  "year": 2002,
+  "subjects": [
+   "literary",
+   "japanese",
+   "translated",
+   "surreal"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "mixed",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "My Brilliant Friend",
+  "author": "Elena Ferrante",
+  "year": 2011,
+  "subjects": [
+   "literary",
+   "italian",
+   "translated",
+   "friendship"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Exhalation",
+  "author": "Ted Chiang",
+  "year": 2019,
+  "subjects": [
+   "science fiction",
+   "short stories",
+   "philosophical",
+   "hard sf"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "mixed",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Project Hail Mary",
+  "author": "Andy Weir",
+  "year": 2021,
+  "subjects": [
+   "science fiction",
+   "hard sf",
+   "problem solving",
+   "humour"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Three-Body Problem",
+  "author": "Cixin Liu",
+  "year": 2008,
+  "subjects": [
+   "science fiction",
+   "chinese",
+   "translated",
+   "hard sf"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Wolf Hall",
+  "author": "Hilary Mantel",
+  "year": 2009,
+  "subjects": [
+   "historical",
+   "tudor",
+   "present tense",
+   "long"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "third",
+   "tense": "present",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Lincoln in the Bardo",
+  "author": "George Saunders",
+  "year": 2017,
+  "subjects": [
+   "literary",
+   "experimental",
+   "polyphonic",
+   "ghosts"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "mixed",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Underground Railroad",
+  "author": "Colson Whitehead",
+  "year": 2016,
+  "subjects": [
+   "literary",
+   "historical",
+   "american",
+   "allegory"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Small Things Like These",
+  "author": "Claire Keegan",
+  "year": 2021,
+  "subjects": [
+   "literary",
+   "irish",
+   "novella",
+   "restraint"
+  ],
+  "style": {
+   "prose_density": 22,
+   "mean_sentence_length": 11,
+   "sentence_length_sd": 6,
+   "ornament_index": 12,
+   "dialogue_share": 0.28,
+   "cliche_rate": 0.5,
+   "subordination_rate": 0.4,
+   "grade_level": 5.5,
+   "lexical_variety": 0.42,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "spare",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Milkman",
+  "author": "Anna Burns",
+  "year": 2018,
+  "subjects": [
+   "literary",
+   "irish",
+   "unnamed characters",
+   "long sentences"
+  ],
+  "style": {
+   "prose_density": 84,
+   "mean_sentence_length": 31,
+   "sentence_length_sd": 19,
+   "ornament_index": 66,
+   "dialogue_share": 0.08,
+   "cliche_rate": 0.4,
+   "subordination_rate": 1.9,
+   "grade_level": 14.0,
+   "lexical_variety": 0.56,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "dense",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Ducks, Newburyport",
+  "author": "Lucy Ellmann",
+  "year": 2019,
+  "subjects": [
+   "literary",
+   "experimental",
+   "stream of consciousness",
+   "very long"
+  ],
+  "style": {
+   "prose_density": 84,
+   "mean_sentence_length": 31,
+   "sentence_length_sd": 19,
+   "ornament_index": 66,
+   "dialogue_share": 0.08,
+   "cliche_rate": 0.4,
+   "subordination_rate": 1.9,
+   "grade_level": 14.0,
+   "lexical_variety": 0.56,
+   "pov": "first",
+   "tense": "present",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "dense",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Bee Sting",
+  "author": "Paul Murray",
+  "year": 2023,
+  "subjects": [
+   "literary",
+   "irish",
+   "family",
+   "long"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "mixed",
+   "tense": "mixed",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Babel",
+  "author": "R. F. Kuang",
+  "year": 2022,
+  "subjects": [
+   "fantasy",
+   "dark academia",
+   "colonialism",
+   "footnotes"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Priory of the Orange Tree",
+  "author": "Samantha Shannon",
+  "year": 2019,
+  "subjects": [
+   "fantasy",
+   "dragons",
+   "epic",
+   "very long"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Legends & Lattes",
+  "author": "Travis Baldree",
+  "year": 2022,
+  "subjects": [
+   "fantasy",
+   "cosy",
+   "low stakes",
+   "coffee"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The House in the Cerulean Sea",
+  "author": "TJ Klune",
+  "year": 2020,
+  "subjects": [
+   "fantasy",
+   "cosy",
+   "found family",
+   "whimsical"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Fourth Wing",
+  "author": "Rebecca Yarros",
+  "year": 2023,
+  "subjects": [
+   "romantasy",
+   "dragons",
+   "military school",
+   "romance"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "first",
+   "tense": "present",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "A Court of Thorns and Roses",
+  "author": "Sarah J. Maas",
+  "year": 2015,
+  "subjects": [
+   "romantasy",
+   "fae",
+   "retelling",
+   "romance"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "It Ends with Us",
+  "author": "Colleen Hoover",
+  "year": 2016,
+  "subjects": [
+   "contemporary romance",
+   "difficult subject",
+   "bestseller"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "first",
+   "tense": "present",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "After",
+  "author": "Anna Todd",
+  "year": 2014,
+  "subjects": [
+   "contemporary romance",
+   "new adult",
+   "web serial origin"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "The Love Hypothesis",
+  "author": "Ali Hazelwood",
+  "year": 2021,
+  "subjects": [
+   "contemporary romance",
+   "academia",
+   "fake dating",
+   "web serial origin"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Red, White & Royal Blue",
+  "author": "Casey McQuiston",
+  "year": 2019,
+  "subjects": [
+   "contemporary romance",
+   "political",
+   "queer",
+   "epistolary elements"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Tomorrow, and Tomorrow, and Tomorrow",
+  "author": "Gabrielle Zevin",
+  "year": 2022,
+  "subjects": [
+   "literary",
+   "video games",
+   "friendship",
+   "decades"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "third",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Piglet",
+  "author": "Lottie Hazell",
+  "year": 2024,
+  "subjects": [
+   "literary",
+   "food",
+   "debut",
+   "domestic"
+  ],
+  "style": {
+   "prose_density": 36,
+   "mean_sentence_length": 15,
+   "sentence_length_sd": 8,
+   "ornament_index": 22,
+   "dialogue_share": 0.24,
+   "cliche_rate": 1.0,
+   "subordination_rate": 0.7,
+   "grade_level": 7.5,
+   "lexical_variety": 0.45,
+   "pov": "third",
+   "tense": "present",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "plain",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Orbital",
+  "author": "Samantha Harvey",
+  "year": 2023,
+  "subjects": [
+   "literary",
+   "space station",
+   "novella",
+   "lyrical"
+  ],
+  "style": {
+   "prose_density": 68,
+   "mean_sentence_length": 24,
+   "sentence_length_sd": 14,
+   "ornament_index": 50,
+   "dialogue_share": 0.13,
+   "cliche_rate": 0.6,
+   "subordination_rate": 1.4,
+   "grade_level": 11.5,
+   "lexical_variety": 0.52,
+   "pov": "third",
+   "tense": "present",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "textured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Demon Copperhead",
+  "author": "Barbara Kingsolver",
+  "year": 2022,
+  "subjects": [
+   "literary",
+   "appalachia",
+   "retelling",
+   "voice-driven"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "first",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ },
+ {
+  "title": "Trust",
+  "author": "Hernan Diaz",
+  "year": 2022,
+  "subjects": [
+   "literary",
+   "finance",
+   "nested narratives",
+   "unreliable"
+  ],
+  "style": {
+   "prose_density": 52,
+   "mean_sentence_length": 19,
+   "sentence_length_sd": 11,
+   "ornament_index": 34,
+   "dialogue_share": 0.18,
+   "cliche_rate": 0.8,
+   "subordination_rate": 1.0,
+   "grade_level": 9.5,
+   "lexical_variety": 0.48,
+   "pov": "mixed",
+   "tense": "past",
+   "pov_confidence": 0.0,
+   "tense_confidence": 0.0,
+   "adverb_rate": 12.0,
+   "comma_rate": 2.2,
+   "long_sentence_share": 0.1,
+   "short_sentence_share": 0.2,
+   "mean_paragraph_sentences": 3.5,
+   "dash_rate": 3.0,
+   "words_analysed": 0,
+   "sentences_analysed": 0,
+   "notes": [
+    "Provisional values. Not yet measured from text."
+   ]
+  },
+  "style_band": "measured",
+  "gutenberg_id": null,
+  "provisional": true
+ }
+]

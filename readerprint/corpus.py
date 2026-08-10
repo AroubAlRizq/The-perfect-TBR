@@ -164,6 +164,47 @@ def enrich_all(conn, limit: int | None = None, only_provisional: bool = True) ->
     return report
 
 
+def backfill_genres(conn) -> int:
+    """
+    Derive genres for books stored before the column existed.
+
+    Runs automatically at startup rather than being a command someone has to
+    know about: a corpus of thousands with an empty genre filter looks broken,
+    and the fix costs a few seconds once.
+    """
+    from .genres import derive
+    from .tropes import derive as derive_tropes
+
+    rows = conn.execute(
+        "SELECT id, title, subjects, description FROM books "
+        "WHERE genres IS NULL OR genres = '' OR genres = '[]' "
+        "OR tropes IS NULL OR tropes = ''"
+    ).fetchall()
+    if not rows:
+        return 0
+
+    updated = 0
+    for row in rows:
+        try:
+            subjects = json.loads(row["subjects"] or "[]")
+        except (json.JSONDecodeError, TypeError):
+            subjects = []
+        found = derive(subjects, row["description"] or "")
+        tropes = derive_tropes(
+            subjects, row["description"] or "", row["title"] or ""
+        )
+        conn.execute(
+            "UPDATE books SET genres = ?, tropes = ? WHERE id = ?",
+            (json.dumps(found), json.dumps(tropes), row["id"]),
+        )
+        updated += 1
+        if updated % 2000 == 0:
+            conn.commit()
+
+    conn.commit()
+    return updated
+
+
 def main() -> None:
     command = sys.argv[1] if len(sys.argv) > 1 else "load"
     conn = db.connect()
@@ -183,6 +224,10 @@ def main() -> None:
         print(f"  metadata only           : {report['metadata_only']}")
         print(f"  failed                  : {report['failed']}")
 
+    elif command == "genres":
+        updated = backfill_genres(conn)
+        print(f"Derived genres for {updated:,} books.")
+
     elif command == "status":
         books = db.all_books(conn)
         measured = sum(1 for b in books if not b.provisional)
@@ -191,9 +236,11 @@ def main() -> None:
         print(f"  measured        : {measured}")
         print(f"  provisional     : {len(books) - measured}")
         print(f"  with ISBN       : {with_isbn}")
+        tagged = sum(1 for b in books if b.genres)
+        print(f"  with a genre    : {tagged}")
 
     else:
-        print("Usage: python -m readerprint.corpus [load|enrich [n]|status]")
+        print("Usage: python -m readerprint.corpus [load|enrich [n]|genres|status]")
 
 
 if __name__ == "__main__":

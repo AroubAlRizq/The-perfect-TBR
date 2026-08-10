@@ -419,6 +419,12 @@ def recommend(
     allowed_pov: set[str] | None = None,
     exclude_flags: set[str] | None = None,
     repulsion: float = 0.45,
+    measured_only: bool = False,
+    provisional_penalty: float = 0.12,
+    min_year: int | None = None,
+    max_year: int | None = None,
+    allowed_genres: set[str] | None = None,
+    measured_share: float | None = None,
 ) -> list[Recommendation]:
     if profile.liked_centroid is None or space.matrix.shape[0] == 0:
         return []
@@ -430,6 +436,21 @@ def recommend(
     candidates: list[Recommendation] = []
     for i, book in enumerate(space.books):
         if book.id in exclude_ids:
+            continue
+        if measured_only and book.provisional:
+            continue
+        # A book with no recorded year is excluded whenever a year filter is
+        # active. Someone asking for books since 2015 does not want a pile of
+        # undated records on a technicality.
+        if (min_year or max_year) and not book.year:
+            continue
+        # Any-match rather than all-match: someone picking Fantasy and
+        # Mystery wants either, not only books that are both.
+        if allowed_genres and not (set(book.genres or []) & allowed_genres):
+            continue
+        if min_year and book.year < min_year:
+            continue
+        if max_year and book.year > max_year:
             continue
 
         wc = book.estimated_word_count()
@@ -445,6 +466,19 @@ def recommend(
             continue
 
         penalty, cautions = _aversion_penalty(book, profile)
+
+        # An unmeasured book has no style vector, so style_vector() fills
+        # every dimension with the same neutral value. That makes thousands
+        # of them land on identical coordinates and score identically —
+        # which is why a large metadata import can bury the measured corpus
+        # under a wall of near-tied books that say nothing.
+        #
+        # The penalty is a statement about confidence, not quality: we know
+        # less about this book, so it needs a stronger semantic match to
+        # earn the same place.
+        if book.provisional:
+            penalty += provisional_penalty
+            cautions.append("Prose not measured yet — matched on subject alone.")
         candidates.append(
             Recommendation(
                 book=book,
@@ -462,27 +496,61 @@ def recommend(
     candidates.sort(key=lambda r: r.score, reverse=True)
     pool = candidates[: max(limit * 4, 40)]
 
+    # Two pools, not one. Measured books carry real prose measurements;
+    # provisional ones are matched on subject and metadata alone. Left to
+    # compete on score, a large metadata import floods the result set, since
+    # every unmeasured book sits at the same neutral point in style space.
+    #
+    # measured_share is a floor on how much of the list comes from the
+    # measured pool: 1.0 means measured only, 0.5 an even split, 0.25 mostly
+    # provisional. Quotas run during selection rather than as a filter, so
+    # each pool still competes internally on score and diversity.
+    target_measured = None
+    if measured_share is not None:
+        target_measured = int(round(limit * max(0.0, min(1.0, measured_share))))
+
     # Maximal marginal relevance. Without it a list of twelve becomes twelve
     # near-identical books, which is exactly the failure mode of "readers who
     # liked X also liked" widgets.
     selected: list[Recommendation] = []
     remaining = list(pool)
+    chosen_measured = 0
+
     while remaining and len(selected) < limit:
+        eligible = remaining
+        if target_measured is not None:
+            slots_left = limit - len(selected)
+            need_measured = target_measured - chosen_measured
+            if need_measured >= slots_left:
+                # Only measured books can still satisfy the quota.
+                preferred = [r for r in remaining if not r.book.provisional]
+            elif need_measured <= 0:
+                preferred = [r for r in remaining if r.book.provisional]
+            else:
+                preferred = remaining
+            # If a pool runs dry, fall back rather than returning a short
+            # list — a strict quota on an unbalanced corpus would routinely
+            # return four books when twelve were asked for.
+            eligible = preferred or remaining
+
         if not selected:
-            best = max(remaining, key=lambda r: r.score)
+            best = max(eligible, key=lambda r: r.score)
         else:
             chosen_rows = np.vstack(
                 [space.matrix[space.index[r.book.id]] for r in selected]
             )
             best, best_value = None, -1e9
-            for cand in remaining:
+            for cand in eligible:
                 row = space.matrix[space.index[cand.book.id]]
                 redundancy = float(np.max(chosen_rows @ row))
                 value = (1 - diversity) * cand.score - diversity * redundancy
                 if value > best_value:
                     best, best_value = cand, value
+
         selected.append(best)
         remaining.remove(best)
+        if not best.book.provisional:
+            chosen_measured += 1
 
     # Diversity governs which twelve are chosen; score governs how they are
     # ordered. Showing them in selection order puts lower scores above higher

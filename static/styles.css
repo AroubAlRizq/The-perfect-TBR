@@ -1,30 +1,52 @@
 /* ════════════════════════════════════════════════════════════════════
    Readerprint
 
-   Type carries meaning here rather than decoration:
+   TYPE CARRIES MEANING, not decoration:
 
      Archivo         the application speaking
-     Source Serif    the book speaking — used only where real prose appears
+     Source Serif    the book speaking — only where real prose appears
      JetBrains Mono  a measurement
 
-   So when a reader sees serif on this page, it is always an excerpt, never
-   a heading. That is the one rule everything else is built around.
+   So a serif on this page is always an excerpt, never a heading.
+
+   GLOW CARRIES MEANING TOO. It is not atmosphere. Anything that glows is a
+   live reading taken from actual prose: meter fills, the specimen rail, the
+   lit edge on a measured card. Metadata, chrome and navigation stay matte.
+   When a card has no glow, that is the interface saying nothing has been
+   measured yet — the same fact the "Not yet measured" flag states in words.
    ════════════════════════════════════════════════════════════════════ */
 
 :root {
-  --ink:        #171a21;
-  --ink-soft:   #333a47;
-  --muted:      #6e7280;
-  --faint:      #9a9d9a;
-  --paper:      #e3e6e6;
-  --card:       #fbfbf9;
-  --rule:       #c5c9c9;
-  --rule-soft:  #d8dcdc;
-  --cobalt:     #2242c7;
-  --cobalt-dim: #e4e7f7;
-  --ochre:      #a8681b;
-  --ochre-dim:  #f4ebdc;
-  --sage:       #3d6b52;
+  /* Ground. Blue-black rather than neutral: pure black makes glow read as a
+     screen defect, and the blue keeps the paper-white prose warm against it. */
+  --void:       #0a0c13;
+  --surface:    #11141e;
+  --surface-2:  #171b28;
+  --surface-3:  #1e2333;
+
+  --text:       #e9ebf5;
+  --text-dim:   #a4a9bd;
+  --muted:      #767c94;
+  --faint:      #565b70;
+
+  --line:       #232838;
+  --line-soft:  #1b2030;
+
+  /* Violet leads, cyan measures, magenta cautions. */
+  --violet:     #7c5cff;
+  --violet-lo:  #5b3fd6;
+  --violet-bg:  rgba(124, 92, 255, 0.12);
+  --cyan:       #22d3ee;
+  --cyan-bg:    rgba(34, 211, 238, 0.10);
+  --magenta:    #ff5fa2;
+  --magenta-bg: rgba(255, 95, 162, 0.11);
+
+  /* Prose sits on warm off-white so an excerpt still reads as ink on paper
+     rather than as more interface. */
+  --prose:      #f2efe8;
+
+  --glow-violet: 0 0 16px rgba(124, 92, 255, 0.55);
+  --glow-cyan:   0 0 14px rgba(34, 211, 238, 0.50);
 
   --step-0: 0.9375rem;
   --step-1: 1.0625rem;
@@ -34,7 +56,33 @@
 
   --gap:   1.5rem;
   --pad:   1.75rem;
-  --radius: 3px;
+  --radius: 6px;
+}
+
+/* Light theme for anyone who cannot read on dark for long. Same semantics:
+   glow becomes saturated colour, carrying the "this is measured" signal
+   without relying on luminance. */
+[data-theme="light"] {
+  --void:       #e4e6ea;
+  --surface:    #fbfbfd;
+  --surface-2:  #f2f3f7;
+  --surface-3:  #e8eaf1;
+  --text:       #12151f;
+  --text-dim:   #3a4054;
+  --muted:      #666d84;
+  --faint:      #9198ad;
+  --line:       #d2d6df;
+  --line-soft:  #e2e5ec;
+  --violet:     #5b3fd6;
+  --violet-lo:  #4930b8;
+  --violet-bg:  rgba(91, 63, 214, 0.09);
+  --cyan:       #0e7f95;
+  --cyan-bg:    rgba(14, 127, 149, 0.09);
+  --magenta:    #c9316f;
+  --magenta-bg: rgba(201, 49, 111, 0.09);
+  --prose:      #14161d;
+  --glow-violet: 0 0 0 rgba(0, 0, 0, 0);
+  --glow-cyan:   0 0 0 rgba(0, 0, 0, 0);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -43,20 +91,44 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--void);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
   font-family: "Archivo", system-ui, -apple-system, sans-serif;
   font-size: var(--step-0);
   line-height: 1.55;
   font-feature-settings: "kern" 1;
 }
 
+/* One faint wash behind the top of the page. Fixed rather than scrolling, so
+   it stays a property of the room instead of travelling with the content. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 60vh;
+  background:
+    radial-gradient(70% 55% at 22% 0%, rgba(124, 92, 255, 0.16), transparent 70%),
+    radial-gradient(50% 45% at 88% 4%, rgba(34, 211, 238, 0.09), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="light"] body::before { opacity: 0.4; }
+
+body > * { position: relative; z-index: 1; }
+
 button, input, select, textarea { font: inherit; color: inherit; }
 
-::selection { background: var(--cobalt); color: #fff; }
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: var(--line); }
+
+::selection { background: var(--violet); color: #fff; }
 
 :focus-visible {
-  outline: 2px solid var(--cobalt);
+  outline: 2px solid var(--cyan);
   outline-offset: 2px;
 }
 
@@ -66,30 +138,87 @@ button, input, select, textarea { font: inherit; color: inherit; }
   position: sticky;
   top: 0;
   z-index: 40;
+  backdrop-filter: blur(14px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--gap);
   padding: 0.85rem clamp(1rem, 4vw, 3rem);
-  background: var(--paper);
-  border-bottom: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--void) 86%, transparent);
+  border-bottom: 1px solid var(--line);
   flex-wrap: wrap;
 }
 
 .mark { text-decoration: none; color: inherit; display: flex; align-items: baseline; gap: 0.6rem; }
 
+/* The wordmark. Gradient violet into cyan, with the glow behind the text
+   rather than on the letterforms, so the type stays crisp. */
 .mark-name {
   font-weight: 700;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
   font-size: var(--step-1);
+  background: linear-gradient(96deg, #b9a6ff 0%, var(--violet) 44%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
 }
+
+.mark-name::after {
+  content: "";
+  position: absolute;
+  inset: -35% -10%;
+  background: radial-gradient(60% 120% at 32% 50%, rgba(124, 92, 255, 0.42), transparent 70%);
+  filter: blur(10px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+[data-theme="light"] .mark-name::after { display: none; }
 
 .mark-sub {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.6875rem;
-  color: var(--muted);
-  letter-spacing: 0.04em;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  opacity: 0.9;
+  position: relative;
+  padding-left: 0.8rem;
 }
+
+/* A slow pulse before the tagline — the only ornamental motion here, and it
+   stops for anyone who has asked motion to stop. */
+.mark-sub::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin-top: -2px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: var(--glow-cyan);
+  animation: pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%      { opacity: 1;   transform: scale(1.2); }
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0.34rem 0.6rem;
+  font-size: 0.8125rem;
+  margin-left: 0.4rem;
+}
+
+.theme-toggle:hover { color: var(--text); border-color: var(--violet); }
 
 .bar-nav { display: flex; gap: 0.25rem; }
 
@@ -106,15 +235,19 @@ button, input, select, textarea { font: inherit; color: inherit; }
   gap: 0.4rem;
 }
 
-.tab:hover { color: var(--ink); background: var(--rule-soft); }
+.tab:hover { color: var(--text); background: var(--line-soft); }
 
-.tab.is-active { color: var(--ink); background: var(--card); box-shadow: inset 0 0 0 1px var(--rule); }
+.tab.is-active {
+  color: var(--text);
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--violet), 0 0 18px rgba(124, 92, 255, 0.16);
+}
 
 .tab-count {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.6875rem;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--violet);
+  color: #fff;
   border-radius: 999px;
   padding: 0.05rem 0.4rem;
   min-width: 1.4em;
@@ -137,10 +270,18 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
 }
 
 @media (min-width: 900px) {
+  /* The rail was pinned at 15rem, which clipped values like "14.8 words" and
+     "grade 11.5" against the container edge. It now sizes to its content
+     between a floor and a ceiling, and the specimen column absorbs the
+     difference. */
   .hero {
-    grid-template-columns: 22rem minmax(0, 1fr) 15rem;
+    grid-template-columns: minmax(15rem, 20rem) minmax(0, 1fr) minmax(15.5rem, max-content);
     align-items: start;
   }
+}
+
+@media (min-width: 1180px) {
+  .hero { grid-template-columns: 21rem minmax(0, 1fr) minmax(16rem, 19rem); }
 }
 
 .eyebrow {
@@ -148,7 +289,7 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   font-size: 0.6875rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--cobalt);
+  color: var(--violet);
   margin: 0 0 0.9rem;
 }
 
@@ -160,18 +301,18 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   margin: 0 0 1.1rem;
 }
 
-.lede { color: var(--ink-soft); margin: 0; max-width: 34ch; }
+.lede { color: var(--text-dim); margin: 0; max-width: 34ch; }
 
 /* ── The specimen: signature element ──────────────────────────────── */
 
 .specimen {
-  background: var(--card);
-  border: 1px solid var(--rule);
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   display: flex;
   flex-direction: column;
   min-height: 29rem;
-  box-shadow: 0 1px 0 var(--rule-soft);
+  box-shadow: 0 1px 0 var(--line-soft);
 }
 
 .specimen-head,
@@ -180,10 +321,10 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   align-items: center;
   justify-content: space-between;
   padding: 0.6rem 1rem;
-  border-bottom: 1px solid var(--rule-soft);
+  border-bottom: 1px solid var(--line-soft);
 }
 
-.specimen-foot { border-bottom: 0; border-top: 1px solid var(--rule-soft); }
+.specimen-foot { border-bottom: 0; border-top: 1px solid var(--line-soft); }
 
 .specimen-label {
   font-family: "JetBrains Mono", monospace;
@@ -202,7 +343,8 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   padding: 1.6rem 1.75rem;
   font-family: "Source Serif 4", Georgia, serif;
   font-size: 1.0625rem;
-  line-height: 1.72;
+  line-height: 1.74;
+  color: var(--prose);
   min-height: 22rem;
 }
 
@@ -218,12 +360,23 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
 /* ── Measurement rail ─────────────────────────────────────────────── */
 
 .rail {
-  border-left: 2px solid var(--ink);
-  padding-left: 1.1rem;
+  border-left: 1px solid var(--violet);
+  box-shadow: -1px 0 18px -6px rgba(124, 92, 255, 0.55);
+  padding-left: 1.25rem;
+  /* Values are right-aligned, so this padding is the only thing between the
+     last digit and the edge of the layout. At 0.35rem it read as clipped
+     even though nothing was cut. */
+  padding-right: 1.35rem;
+  min-width: 0;
 }
 
 @media (max-width: 899px) {
-  .rail { border-left: 0; border-top: 2px solid var(--ink); padding: 1.1rem 0 0; }
+  .rail {
+    border-left: 0;
+    border-top: 1px solid var(--violet);
+    box-shadow: 0 -1px 18px -6px rgba(124, 92, 255, 0.55);
+    padding: 1.1rem 0 0;
+  }
 }
 
 .rail-verdict {
@@ -234,7 +387,7 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   font-weight: 500;
 }
 
-.metric { margin-bottom: 1rem; }
+.metric { margin-bottom: 1.15rem; }
 
 .metric-top {
   display: flex;
@@ -258,16 +411,23 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   font-weight: 700;
 }
 
-.meter { height: 3px; background: var(--rule-soft); overflow: hidden; }
+.meter { height: 3px; background: var(--surface-3); border-radius: 2px; overflow: hidden; }
 
+/* Glow lives here and on the density bars: these are readings taken from
+   real prose, and the light is what marks them as measured. */
 .meter-fill {
   height: 100%;
-  background: var(--cobalt);
   width: 0;
-  transition: width 620ms cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--violet), var(--cyan));
+  box-shadow: var(--glow-violet);
+  transition: width 700ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.metric.is-flat .meter-fill { background: var(--ochre); }
+.metric.is-flat .meter-fill {
+  background: linear-gradient(90deg, var(--magenta), #ff8fc0);
+  box-shadow: 0 0 14px rgba(255, 95, 162, 0.5);
+}
 
 .hint {
   font-family: "JetBrains Mono", monospace;
@@ -275,24 +435,31 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   color: var(--muted);
   margin-top: 2rem;
   padding-top: 0.9rem;
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid var(--line);
 }
 
 /* ── Buttons and fields ───────────────────────────────────────────── */
 
 .solid {
-  background: var(--ink);
-  color: var(--paper);
+  background: linear-gradient(96deg, var(--violet-lo), var(--violet));
+  color: #fff;
   border: 0;
-  padding: 0.5rem 1.05rem;
+  padding: 0.52rem 1.1rem;
   border-radius: var(--radius);
   font-weight: 600;
   cursor: pointer;
   letter-spacing: -0.005em;
+  transition: box-shadow 180ms ease, transform 180ms ease;
 }
 
-.solid:hover { background: var(--cobalt); }
-.solid:disabled { background: var(--faint); cursor: not-allowed; }
+.solid:hover { box-shadow: 0 0 22px rgba(124, 92, 255, 0.5); transform: translateY(-1px); }
+.solid:disabled {
+  background: var(--surface-3);
+  color: var(--faint);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
 
 .ghost {
   background: none;
@@ -304,17 +471,17 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   border-radius: var(--radius);
 }
 
-.ghost:hover { color: var(--ink); background: var(--rule-soft); }
+.ghost:hover { color: var(--cyan); background: var(--surface-2); }
 
 .field {
   width: 100%;
   padding: 0.55rem 0.75rem;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--card);
+  background: var(--surface);
 }
 
-.field:focus { outline: none; border-color: var(--cobalt); }
+.field:focus { outline: none; border-color: var(--violet); box-shadow: 0 0 0 3px var(--violet-bg); }
 
 /* ── Split layout ─────────────────────────────────────────────────── */
 
@@ -325,8 +492,8 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
 }
 
 .panel {
-  background: var(--card);
-  border: 1px solid var(--rule);
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: var(--pad);
   margin-bottom: var(--gap);
@@ -353,31 +520,31 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   align-items: center;
   gap: 0.2rem;
   padding: 1.6rem 1rem;
-  border: 1px dashed var(--rule);
+  border: 1px dashed var(--line);
   border-radius: var(--radius);
   cursor: pointer;
   text-align: center;
-  background: var(--paper);
+  background: var(--surface-2);
 }
 
-.dropzone:hover, .dropzone.is-over { border-color: var(--cobalt); background: var(--cobalt-dim); }
+.dropzone:hover, .dropzone.is-over { border-color: var(--violet); background: var(--violet-bg); }
 .dropzone-main { font-weight: 600; }
 .dropzone-sub { font-size: 0.8125rem; color: var(--muted); }
 
 .import-report {
   margin-top: 0.9rem;
   padding: 0.85rem;
-  background: var(--cobalt-dim);
+  background: var(--violet-bg);
   border-radius: var(--radius);
   font-family: "JetBrains Mono", monospace;
   font-size: 0.75rem;
   line-height: 1.7;
 }
 
-.import-report.is-warning { background: var(--ochre-dim); }
+.import-report.is-warning { background: var(--magenta-bg); }
 
 .how { margin-top: 1rem; font-size: 0.8125rem; }
-.how summary { cursor: pointer; color: var(--cobalt); }
+.how summary { cursor: pointer; color: var(--violet); }
 .how p { color: var(--muted); margin: 0.5rem 0 0; }
 
 /* ── Search results ───────────────────────────────────────────────── */
@@ -390,7 +557,7 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   align-items: center;
   gap: 0.6rem;
   padding: 0.55rem 0.2rem;
-  border-bottom: 1px solid var(--rule-soft);
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .result:last-child { border-bottom: 0; }
@@ -402,15 +569,15 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
 .shelf-list { display: flex; flex-direction: column; gap: 0.5rem; }
 
 .shelf-row {
-  background: var(--card);
-  border: 1px solid var(--rule);
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 0.9rem 1.1rem;
   display: grid;
   gap: 0.7rem;
 }
 
-.shelf-row.needs-reason { border-left: 3px solid var(--ochre); }
+.shelf-row.needs-reason { border-left: 3px solid var(--magenta); }
 
 .shelf-main { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; }
 .shelf-title { font-weight: 600; letter-spacing: -0.012em; line-height: 1.3; }
@@ -419,8 +586,8 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
 .verdicts { display: flex; flex-wrap: wrap; gap: 0.25rem; }
 
 .verdict-btn {
-  border: 1px solid var(--rule);
-  background: var(--paper);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
   border-radius: 999px;
   padding: 0.2rem 0.7rem;
   font-size: 0.8125rem;
@@ -428,13 +595,13 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   color: var(--muted);
 }
 
-.verdict-btn:hover { border-color: var(--ink); color: var(--ink); }
-.verdict-btn.is-on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.verdict-btn:hover { border-color: var(--text); color: var(--text); }
+.verdict-btn.is-on { background: var(--text); border-color: var(--text); color: var(--surface-2); }
 .verdict-btn.is-on[data-verdict="dnf"],
-.verdict-btn.is-on[data-verdict="disliked"] { background: var(--ochre); border-color: var(--ochre); }
+.verdict-btn.is-on[data-verdict="disliked"] { background: var(--magenta); border-color: var(--magenta); }
 
 .reason-block {
-  border-top: 1px solid var(--rule-soft);
+  border-top: 1px solid var(--line-soft);
   padding-top: 0.7rem;
 }
 
@@ -443,24 +610,24 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   font-size: 0.6875rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--ochre);
+  color: var(--magenta);
   margin-bottom: 0.45rem;
 }
 
 .reason-chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
 
 .chip {
-  border: 1px solid var(--rule);
-  background: var(--paper);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
   border-radius: var(--radius);
   padding: 0.18rem 0.55rem;
   font-size: 0.8125rem;
   cursor: pointer;
-  color: var(--ink-soft);
+  color: var(--text-dim);
 }
 
-.chip:hover { border-color: var(--cobalt); }
-.chip.is-on { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
+.chip:hover { border-color: var(--violet); }
+.chip.is-on { background: var(--violet); border-color: var(--violet); color: #fff; }
 
 /* ── Fingerprint ──────────────────────────────────────────────────── */
 
@@ -477,7 +644,7 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   margin-bottom: 0.3rem;
 }
 
-.fp-track { position: relative; height: 20px; border-bottom: 1px solid var(--rule); }
+.fp-track { position: relative; height: 20px; border-bottom: 1px solid var(--line); }
 
 .fp-tick {
   position: absolute;
@@ -488,14 +655,14 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   transform: translateX(-0.5px);
 }
 
-.fp-tick.is-negative { background: var(--ochre); height: 13px; }
+.fp-tick.is-negative { background: var(--magenta); height: 13px; }
 
 .fp-centre {
   position: absolute;
   bottom: -1px;
   width: 3px;
   height: 20px;
-  background: var(--cobalt);
+  background: var(--violet);
   transform: translateX(-1.5px);
 }
 
@@ -516,8 +683,8 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   gap: 0.9rem;
   align-items: flex-end;
   padding: 1rem 1.2rem;
-  background: var(--card);
-  border: 1px solid var(--rule);
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   margin-bottom: var(--gap);
 }
@@ -534,9 +701,9 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
 
 .filter select {
   padding: 0.4rem 0.6rem;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--paper);
+  background: var(--surface-2);
 }
 
 /* ── Recommendation cards ─────────────────────────────────────────── */
@@ -548,18 +715,41 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
 }
 
 .rec {
-  background: var(--card);
-  border: 1px solid var(--rule);
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 1.2rem 1.3rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   cursor: pointer;
-  transition: border-color 160ms ease, transform 160ms ease;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
 
-.rec:hover { border-color: var(--ink); transform: translateY(-2px); }
+.rec:hover {
+  border-color: var(--violet);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(124, 92, 255, 0.2);
+}
+
+[data-theme="light"] .rec:hover { box-shadow: 0 10px 26px rgba(20, 22, 30, 0.1); }
+
+/* A measured book carries a lit edge; an unmeasured one does not. The
+   absence is the signal, which is why this is never applied decoratively. */
+.rec.is-measured::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--violet), var(--cyan));
+  box-shadow: var(--glow-violet);
+}
+
+.rec.is-provisional { border-style: dashed; }
 
 .rec-head { display: flex; justify-content: space-between; gap: 0.8rem; align-items: flex-start; }
 .rec-title { font-weight: 600; font-size: var(--step-1); letter-spacing: -0.02em; line-height: 1.25; }
@@ -568,7 +758,7 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
 .rec-score {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.75rem;
-  color: var(--cobalt);
+  color: var(--violet);
   font-weight: 700;
   white-space: nowrap;
 }
@@ -581,20 +771,21 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   letter-spacing: 0.03em;
   padding: 0.15rem 0.45rem;
   border-radius: 2px;
-  background: var(--rule-soft);
-  color: var(--ink-soft);
+  background: var(--line-soft);
+  color: var(--text-dim);
   white-space: nowrap;
 }
 
-.flag.is-signal { background: var(--cobalt-dim); color: var(--cobalt); }
-.flag.is-caution { background: var(--ochre-dim); color: var(--ochre); }
-.flag.is-provisional { background: transparent; box-shadow: inset 0 0 0 1px var(--rule); color: var(--faint); }
+.flag.is-signal { background: var(--violet-bg); color: #b9a6ff; }
+[data-theme="light"] .flag.is-signal { color: var(--violet); }
+.flag.is-caution { background: var(--magenta-bg); color: var(--magenta); }
+.flag.is-provisional { background: transparent; box-shadow: inset 0 0 0 1px var(--line); color: var(--faint); }
 
 .rec-reasons { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.3rem; }
 
 .rec-reasons li {
   font-size: 0.8125rem;
-  color: var(--ink-soft);
+  color: var(--text-dim);
   padding-left: 0.9rem;
   position: relative;
   line-height: 1.45;
@@ -607,11 +798,11 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   top: 0.55em;
   width: 5px;
   height: 1px;
-  background: var(--cobalt);
+  background: var(--violet);
 }
 
-.rec-reasons li.is-caution { color: var(--ochre); }
-.rec-reasons li.is-caution::before { background: var(--ochre); }
+.rec-reasons li.is-caution { color: var(--magenta); }
+.rec-reasons li.is-caution::before { background: var(--magenta); }
 
 .rec-density { display: flex; align-items: center; gap: 0.6rem; }
 
@@ -629,7 +820,8 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
 .drawer-scrim {
   position: fixed;
   inset: 0;
-  background: rgba(23, 26, 33, 0.4);
+  background: rgba(5, 6, 11, 0.72);
+  backdrop-filter: blur(3px);
   z-index: 50;
 }
 
@@ -639,8 +831,9 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   right: 0;
   bottom: 0;
   width: min(35rem, 100%);
-  background: var(--paper);
-  border-left: 1px solid var(--rule);
+  background: var(--surface);
+  border-left: 1px solid var(--line);
+  box-shadow: -24px 0 60px rgba(0, 0, 0, 0.5);
   z-index: 60;
   overflow-y: auto;
   padding: 1.5rem clamp(1.2rem, 3vw, 2.2rem) 4rem;
@@ -651,7 +844,7 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
 
 .drawer-close {
   background: none;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 0.25rem 0.7rem;
   cursor: pointer;
@@ -660,7 +853,7 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   margin-bottom: 1.2rem;
 }
 
-.drawer-close:hover { border-color: var(--ink); color: var(--ink); }
+.drawer-close:hover { border-color: var(--text); color: var(--text); }
 
 .drawer h3 { font-size: var(--step-2); letter-spacing: -0.03em; margin: 0 0 0.2rem; line-height: 1.2; }
 .drawer-author { color: var(--muted); margin: 0 0 1.1rem; }
@@ -675,16 +868,18 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   color: var(--muted);
   margin: 0 0 0.7rem;
   padding-bottom: 0.4rem;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--line);
 }
 
 /* Excerpt: the book speaking, so serif again. */
 .excerpt {
   font-family: "Source Serif 4", Georgia, serif;
   font-size: 1rem;
-  line-height: 1.75;
-  background: var(--card);
-  border: 1px solid var(--rule);
+  line-height: 1.76;
+  color: var(--prose);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--violet);
   border-radius: var(--radius);
   padding: 1.2rem 1.35rem;
   white-space: pre-wrap;
@@ -701,20 +896,20 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   width: 100%;
   min-height: 9rem;
   padding: 0.9rem 1rem;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--card);
+  background: var(--surface);
   font-family: "Source Serif 4", Georgia, serif;
   font-size: 0.9375rem;
   line-height: 1.7;
   resize: vertical;
 }
 
-.measure-form textarea:focus { outline: none; border-color: var(--cobalt); }
+.measure-form textarea:focus { outline: none; border-color: var(--violet); }
 
 .stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem 1.4rem; }
 
-.stat { display: flex; justify-content: space-between; gap: 0.5rem; border-bottom: 1px dotted var(--rule); padding-bottom: 0.25rem; }
+.stat { display: flex; justify-content: space-between; gap: 0.5rem; border-bottom: 1px dotted var(--line); padding-bottom: 0.25rem; }
 .stat-k { font-size: 0.8125rem; color: var(--muted); }
 .stat-v { font-family: "JetBrains Mono", monospace; font-size: 0.8125rem; font-weight: 500; }
 
@@ -723,12 +918,12 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   border-radius: var(--radius);
   font-size: 0.8125rem;
   line-height: 1.5;
-  background: var(--ochre-dim);
-  color: var(--ochre);
-  border-left: 2px solid var(--ochre);
+  background: var(--magenta-bg);
+  color: var(--magenta);
+  border-left: 2px solid var(--magenta);
 }
 
-.notice.is-neutral { background: var(--cobalt-dim); color: var(--cobalt); border-left-color: var(--cobalt); }
+.notice.is-neutral { background: var(--violet-bg); color: var(--violet); border-left-color: var(--violet); }
 
 /* ── Empty and toast ──────────────────────────────────────────────── */
 
@@ -736,7 +931,7 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   padding: 2.5rem 1.5rem;
   text-align: center;
   color: var(--muted);
-  border: 1px dashed var(--rule);
+  border: 1px dashed var(--line);
   border-radius: var(--radius);
 }
 
@@ -747,19 +942,21 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   left: 50%;
   bottom: 1.75rem;
   transform: translateX(-50%);
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--surface-3);
+  border: 1px solid var(--violet);
+  color: var(--text);
   padding: 0.6rem 1.1rem;
   border-radius: var(--radius);
   font-size: 0.875rem;
   z-index: 80;
-  box-shadow: 0 6px 22px rgba(23, 26, 33, 0.28);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 24px rgba(124, 92, 255, 0.22);
 }
 
 /* ── Motion preference ────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
+    animation-iteration-count: 1 !important;
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
@@ -771,12 +968,12 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   display: grid;
   gap: 0;
   margin-top: 2.5rem;
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid var(--line);
 }
 
 @media (min-width: 800px) {
   .ledger { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .ledger-item + .ledger-item { border-left: 1px solid var(--rule-soft); }
+  .ledger-item + .ledger-item { border-left: 1px solid var(--line-soft); }
 }
 
 .ledger-item { padding: 1.4rem 1.6rem 1.4rem 0; }
@@ -790,15 +987,221 @@ main { padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) 6rem; }
   font-size: 0.6875rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: var(--cobalt);
+  color: var(--violet);
   margin: 0 0 0.55rem;
   font-weight: 500;
 }
 
 .ledger-item p {
   margin: 0;
-  color: var(--ink-soft);
+  color: var(--text-dim);
   font-size: 0.875rem;
   line-height: 1.6;
   max-width: 40ch;
+}
+
+
+/* ── Recommendation sections ──────────────────────────────────────── */
+
+.rec-section { margin-bottom: 2.6rem; scroll-margin-top: 5.5rem; }
+
+.rec-section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  padding-bottom: 0.55rem;
+  margin-bottom: 1.1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.rec-section-head h3 { margin: 0; font-size: var(--step-2); letter-spacing: -0.03em; }
+
+.rec-section-count {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.6875rem;
+  color: var(--violet);
+  border: 1px solid var(--violet);
+  border-radius: 999px;
+  padding: 0.05rem 0.52rem;
+}
+
+.rec-section-blurb {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  flex-basis: 100%;
+}
+
+/* The point of sectioning is being able to skip to what you are in the mood
+   for, so the jump bar is part of the feature rather than a nicety. */
+.jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: var(--gap);
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.jump a {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.24rem 0.72rem;
+  transition: all 140ms ease;
+}
+
+.jump a:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.22);
+}
+
+.filter-year { min-width: 13rem; }
+
+/* Matches the height of a select so the year control sits on the same
+   baseline as the rest of the filter row. */
+.year-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  height: 2.16rem;
+}
+
+.year-row input[type="range"] {
+  flex: 1;
+  min-width: 7rem;
+  margin: 0;
+  accent-color: var(--violet);
+  cursor: pointer;
+  background: transparent;
+}
+
+.year-value {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8125rem;
+  color: var(--cyan);
+  min-width: 3.4rem;
+  text-align: right;
+}
+
+
+/* ── Genre filter ─────────────────────────────────────────────────── */
+
+/* Multi-select, so chips rather than a dropdown: a reader picking "fantasy
+   or mystery" should see both states at once instead of opening a menu to
+   find out what is on. */
+.genre-bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  padding: 0.9rem 1.2rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+}
+
+.genre-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0.3rem;
+  white-space: nowrap;
+}
+
+.genre-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; flex: 1; }
+
+.genre-chip {
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  border-radius: 999px;
+  padding: 0.22rem 0.72rem;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  color: var(--text-dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 140ms ease;
+}
+
+.genre-chip:hover { border-color: var(--violet); color: var(--text); }
+
+.genre-chip.is-on {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(124, 92, 255, 0.35);
+}
+
+.genre-chip .genre-count {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.6875rem;
+  opacity: 0.6;
+}
+
+.genre-chip.is-on .genre-count { opacity: 0.85; }
+
+
+/* ── Synopsis and tropes ──────────────────────────────────────────── */
+
+.synopsis {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+
+.synopsis.is-loading { color: var(--faint); font-style: italic; }
+
+.synopsis-text { margin: 0; }
+
+.synopsis-credit {
+  margin-top: 0.6rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.6875rem;
+  color: var(--faint);
+}
+
+.synopsis-credit a { color: var(--cyan); text-decoration: none; }
+.synopsis-credit a:hover { text-decoration: underline; }
+.synopsis.is-empty { color: var(--faint); }
+
+.style-note {
+  margin-top: 1.1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line-soft);
+  color: var(--text-dim);
+}
+
+.trope-list { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+/* Cyan rather than violet: violet marks a measurement, and a trope is an
+   inference from blurb text. Different confidence, different colour. */
+.trope {
+  font-size: 0.8125rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: var(--cyan-bg);
+  color: var(--cyan);
+  border: 1px solid color-mix(in srgb, var(--cyan) 35%, transparent);
+}
+
+.trope-note {
+  margin: 0.6rem 0 0;
+  font-size: 0.75rem;
+  color: var(--faint);
+  font-style: italic;
+}
+
+.flag.is-trope {
+  background: var(--cyan-bg);
+  color: var(--cyan);
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,6 +20,7 @@
     <button class="tab is-active" data-view="measure">Measure</button>
     <button class="tab" data-view="shelf">Shelf <span class="tab-count" id="shelfCount">0</span></button>
     <button class="tab" data-view="recommend">Recommendations</button>
+    <button class="theme-toggle" id="themeToggle" title="Switch theme">Light</button>
   </nav>
 </header>
 
@@ -150,6 +151,12 @@
     </p>
   </div>
 
+  <div class="genre-bar" id="genreBar" hidden>
+    <span class="genre-label">Genre</span>
+    <div class="genre-chips" id="genreChips"></div>
+    <button class="ghost" id="clearGenres" hidden>Clear</button>
+  </div>
+
   <div class="filters">
     <label class="filter">
       <span>Narration</span>
@@ -170,6 +177,21 @@
         <option value="180000">Under 180k words</option>
       </select>
     </label>
+    <label class="filter filter-year">
+      <span>Published from</span>
+      <div class="year-row">
+        <input type="range" id="filterYear" min="1800" max="2026" value="1800" step="1">
+        <span class="year-value" id="yearValue">Any</span>
+      </div>
+    </label>
+    <label class="filter">
+      <span>Evidence</span>
+      <select id="filterMeasured">
+        <option value="only">Measured prose only</option>
+        <option value="0.5" selected>Mostly measured</option>
+        <option value="0.25">Cast a wider net</option>
+      </select>
+    </label>
     <label class="filter">
       <span>Spread</span>
       <select id="filterDiversity">
@@ -181,8 +203,9 @@
     <button class="solid" id="refreshRecs">Update</button>
   </div>
 
+  <nav class="jump" id="jumpBar" hidden></nav>
   <div id="recsMessage" class="empty-state"></div>
-  <div id="recsList" class="rec-grid"></div>
+  <div id="recsList"></div>
 </section>
 
 </main>

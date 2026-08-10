@@ -6,17 +6,36 @@
  },
  "gutenberg": {
   "complete": false,
-  "updated": "2026-08-08 23:55:08",
+  "updated": "2026-08-09 06:56:27",
   "catalogue": 25791,
-  "measured": 295,
-  "skipped": 5,
-  "failed": 0,
-  "already_done": 0
+  "measured": 2949,
+  "skipped": 26,
+  "failed": 25,
+  "already_done": 288
  },
  "report": {
   "complete": true,
-  "updated": "2026-08-08 23:55:08",
-  "books": 359,
-  "measured": 288
+  "updated": "2026-08-09 06:56:43",
+  "books": 3291,
+  "measured": 3204
+ },
+ "openlibrary": {
+  "complete": false,
+  "updated": "2026-08-09 11:28:51",
+  "error": "module 'os' has no attribute 'statvfs'",
+  "works": 18180,
+  "editions": 269264,
+  "promoted": 195
+ },
+ "ratings": {
+  "complete": true,
+  "updated": 0
+ },
+ "repair": {
+  "complete": false,
+  "updated": "2026-08-09 17:26:42",
+  "error": "('Connection broken: IncompleteRead(13580150 bytes read, 763999269 more expected)', IncompleteRead(13580150 bytes read, 763999269 more expected))",
+  "fixed": 194,
+  "remaining": 1
  }
 }

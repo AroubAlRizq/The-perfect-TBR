@@ -26,20 +26,24 @@ from __future__ import annotations
 import gzip
 import io
 import json
+import time
 import re
 import sqlite3
 from pathlib import Path
 
+import requests
+
 from .. import db
 from ..imprint import classify, normalise_isbn
 from ..models import Book
-from .download import Progress, download
+from .download import USER_AGENT, Progress, download
 
 BASE = "https://openlibrary.org/data"
 FILES = {
     "works": "ol_dump_works_latest.txt.gz",
     "editions": "ol_dump_editions_latest.txt.gz",
     "ratings": "ol_dump_ratings_latest.txt.gz",
+    "authors": "ol_dump_authors_latest.txt.gz",
 }
 
 STAGING = """
@@ -49,6 +53,7 @@ CREATE TABLE IF NOT EXISTS ol_works (
     subjects TEXT,
     first_year INTEGER,
     description TEXT,
+    author_keys TEXT,
     -- best edition found so far
     edition_key TEXT,
     edition_score INTEGER DEFAULT -1,
@@ -92,6 +97,17 @@ ENGLISH = {"/languages/eng"}
 
 def open_staging(conn: sqlite3.Connection) -> None:
     conn.executescript(STAGING)
+
+    # CREATE TABLE IF NOT EXISTS silently leaves an existing table alone, so
+    # a database built by an earlier version keeps the old shape. Add any
+    # column it is missing rather than making people rebuild.
+    existing = {
+        row["name"] for row in conn.execute("PRAGMA table_info(ol_works)")
+    }
+    for column, definition in (("author_keys", "TEXT"),):
+        if column not in existing:
+            conn.execute(f"ALTER TABLE ol_works ADD COLUMN {column} {definition}")
+
     conn.commit()
 
 
@@ -170,10 +186,24 @@ def ingest_works(conn, path: Path, limit: int | None = None) -> int:
         if not FICTION_MARKERS.search(blob) or NONFICTION_TRAP.search(blob):
             continue
 
+        # Works reference authors by key, not by name. The names live in a
+        # separate dump, so keys are stored here and resolved at promote
+        # time. Skipping this step was the bug that produced a corpus of
+        # books by "Unknown".
+        author_keys = []
+        for entry in record.get("authors") or []:
+            if isinstance(entry, dict):
+                ref = entry.get("author")
+                if isinstance(ref, dict) and ref.get("key"):
+                    author_keys.append(ref["key"])
+                elif isinstance(ref, str):
+                    author_keys.append(ref)
+
         batch.append((
             key, title, json.dumps(subjects[:25]),
             _year_from(record.get("first_publish_date")),
             (_text_of(record.get("description")) or "")[:2000] or None,
+            json.dumps(author_keys[:3]),
         ))
         kept += 1
 
@@ -189,7 +219,8 @@ def ingest_works(conn, path: Path, limit: int | None = None) -> int:
 def _flush_works(conn, batch) -> None:
     conn.executemany(
         "INSERT OR IGNORE INTO ol_works "
-        "(work_key, title, subjects, first_year, description) VALUES (?,?,?,?,?)",
+        "(work_key, title, subjects, first_year, description, author_keys) "
+        "VALUES (?,?,?,?,?,?)",
         batch,
     )
     conn.commit()
@@ -330,15 +361,70 @@ def ingest_authors(conn, path: Path, limit: int | None = None) -> int:
     return kept
 
 
-def promote(conn, min_score: int = 1, limit: int | None = None) -> int:
+def resolve_authors(conn, keys_json: str | None) -> str:
+    """Turn stored author keys into a display name."""
+    if not keys_json:
+        return ""
+    try:
+        keys = json.loads(keys_json)
+    except (json.JSONDecodeError, TypeError):
+        return ""
+    names = []
+    for key in keys[:2]:
+        row = conn.execute(
+            "SELECT name FROM ol_authors WHERE author_key = ?", (key,)
+        ).fetchone()
+        if row and row["name"]:
+            names.append(row["name"].strip())
+    return ", ".join(names)
+
+
+# Titles in the dump sometimes carry the author, a series note, or an edition
+# label appended after a dash or bracket. Left in place they break author
+# matching and look wrong on a card.
+TITLE_NOISE = re.compile(
+    r"\s*[-–—]\s*(by\s+)?[A-Z][a-z]+(\s+[A-Z][a-z.]+){1,3}\s*$|"
+    r"\s*[\(\[][^)\]]*(edition|annotated|illustrated|unabridged|classics|"
+    r"reprint|translated|volume|vol\.?|complete)[^)\]]*[\)\]]\s*$",
+    re.I,
+)
+
+
+def clean_title(title: str, author: str = "") -> str:
+    cleaned = TITLE_NOISE.sub("", title).strip(" -–—:;,")
+    # Only accept the trim if something substantial survives.
+    if len(cleaned) < 3:
+        return title.strip()
+    if author:
+        surname = author.split()[-1].lower() if author.split() else ""
+        if surname and cleaned.lower().endswith(surname):
+            trimmed = cleaned[: -len(surname)].strip(" -–—:;,by")
+            if len(trimmed) >= 3:
+                cleaned = trimmed
+    return cleaned
+
+
+def promote(conn, min_score: int = 1, limit: int | None = None,
+            require_author: bool = True) -> int:
     """
     Turn staged rows into Book records.
 
     Rows with no usable edition are left staged rather than promoted — a
     title with no ISBN, publisher, page count or cover adds noise to the
-    recommender and gives the reader nothing to act on.
+    recommender and gives the reader nothing to act on. The same now applies
+    to rows with no resolvable author: a shelf full of books by "Unknown" is
+    worse than a smaller shelf.
     """
     open_staging(conn)
+
+    have_authors = conn.execute(
+        "SELECT COUNT(*) AS n FROM ol_authors"
+    ).fetchone()["n"]
+    if require_author and not have_authors:
+        print("  no author names loaded — run the authors stage first, or")
+        print("  pass require_author=False to promote without them")
+        return 0
+
     query = (
         "SELECT * FROM ol_works WHERE promoted = 0 AND edition_score >= ? "
         "ORDER BY edition_score DESC"
@@ -350,17 +436,25 @@ def promote(conn, min_score: int = 1, limit: int | None = None) -> int:
 
     rows = conn.execute(query, params).fetchall()
     bar = Progress("promoting", total=len(rows))
-    added = 0
+    added = skipped = 0
 
     for row in rows:
+        bar.advance()
+        author = resolve_authors(conn, row["author_keys"])
+        if require_author and not author:
+            # Leave it staged. If the authors dump is loaded later, a rerun
+            # will pick it up rather than having discarded it.
+            skipped += 1
+            continue
+
         try:
             subjects = json.loads(row["subjects"] or "[]")
         except (json.JSONDecodeError, TypeError):
             subjects = []
 
         book = Book(
-            title=row["title"],
-            author=row["author"] or "",
+            title=clean_title(row["title"], author),
+            author=author,
             year=row["year"] or row["first_year"],
             isbn13=row["isbn13"],
             publisher=row["publisher"],
@@ -383,14 +477,136 @@ def promote(conn, min_score: int = 1, limit: int | None = None) -> int:
             "UPDATE ol_works SET promoted = 1 WHERE work_key = ?", (row["work_key"],)
         )
         added += 1
-        bar.advance()
 
         if added % 2000 == 0:
             conn.commit()
 
     conn.commit()
-    bar.close(f"({added:,} books added)")
+    note = f"({added:,} added"
+    if skipped:
+        note += f", {skipped:,} held back for missing authors"
+    bar.close(note + ")")
     return added
+
+
+def backfill_authors_via_api(conn, min_gap: float = 0.4) -> int:
+    """
+    Fetch missing author names one work at a time from the API.
+
+    The authors dump is around 780 MB. Downloading all of it to name a few
+    hundred books is the wrong trade by a wide margin — a few hundred small
+    requests finish in minutes over a connection that would need hours for
+    the dump, and they work even when the staging tables are missing or were
+    written by an older version that never stored author keys.
+
+    The dump remains the right tool above a few thousand missing books,
+    which is what stage_repair decides between.
+    """
+    rows = conn.execute(
+        "SELECT id, title, openlibrary_key FROM books "
+        "WHERE (author IS NULL OR author = '') AND openlibrary_key IS NOT NULL"
+    ).fetchall()
+    if not rows:
+        return 0
+
+    session = requests.Session()
+    session.headers.update({"User-Agent": USER_AGENT})
+    name_cache: dict[str, str] = {}
+    last = [0.0]
+
+    def polite_get(url: str):
+        wait = min_gap - (time.monotonic() - last[0])
+        if wait > 0:
+            time.sleep(wait)
+        last[0] = time.monotonic()
+        try:
+            response = session.get(url, timeout=30)
+        except requests.RequestException:
+            return None
+        return response.json() if response.status_code == 200 else None
+
+    def author_name(key: str) -> str | None:
+        if key in name_cache:
+            return name_cache[key]
+        data = polite_get(f"https://openlibrary.org{key}.json")
+        name = (data or {}).get("name")
+        if name:
+            name_cache[key] = name
+        return name
+
+    bar = Progress("resolving", total=len(rows))
+    fixed = 0
+
+    for row in rows:
+        bar.advance()
+        work = polite_get(f"https://openlibrary.org{row['openlibrary_key']}.json")
+        if not work:
+            continue
+
+        names = []
+        for entry in (work.get("authors") or [])[:2]:
+            ref = entry.get("author") if isinstance(entry, dict) else None
+            key = ref.get("key") if isinstance(ref, dict) else (
+                ref if isinstance(ref, str) else None
+            )
+            if key:
+                name = author_name(key)
+                if name:
+                    names.append(name.strip())
+
+        if not names:
+            continue
+
+        author = ", ".join(names)
+        conn.execute(
+            "UPDATE books SET author = ?, title = ? WHERE id = ?",
+            (author, clean_title(row["title"], author), row["id"]),
+        )
+        fixed += 1
+        if fixed % 25 == 0:
+            conn.commit()
+
+    conn.commit()
+    bar.close(f"({fixed:,} authors resolved)")
+    return fixed
+
+
+def backfill_authors(conn) -> int:
+    """
+    Repair books already promoted without an author.
+
+    Needed because an earlier version of this pipeline never loaded the
+    authors dump, so an existing corpus can be full of books by "Unknown"
+    with no way to fix them short of rebuilding.
+    """
+    open_staging(conn)
+    rows = conn.execute(
+        "SELECT b.id, b.title, w.author_keys FROM books b "
+        "JOIN ol_works w ON w.work_key = b.openlibrary_key "
+        "WHERE (b.author IS NULL OR b.author = '')"
+    ).fetchall()
+
+    if not rows:
+        return 0
+
+    bar = Progress("backfill", total=len(rows))
+    fixed = 0
+    for row in rows:
+        bar.advance()
+        author = resolve_authors(conn, row["author_keys"])
+        if not author:
+            continue
+        conn.execute(
+            "UPDATE books SET author = ?, title = ? WHERE id = ?",
+            (author, clean_title(row["title"], author), row["id"]),
+        )
+        fixed += 1
+        if fixed % 2000 == 0:
+            conn.commit()
+
+    conn.commit()
+    bar.close(f"({fixed:,} authors restored)")
+    return fixed
 
 
 # --------------------------------------------------------------------------

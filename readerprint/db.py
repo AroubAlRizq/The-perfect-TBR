@@ -12,6 +12,8 @@ import sqlite3
 from datetime import date
 from pathlib import Path
 
+from .genres import derive as derive_genres
+from .tropes import derive as derive_tropes
 from .models import Book, ReadingEvent
 
 DB_PATH = Path(__file__).resolve().parent.parent / "data" / "readerprint.db"
@@ -32,7 +34,12 @@ CREATE TABLE IF NOT EXISTS books (
     series TEXT,
     series_position REAL,
     subjects TEXT,
+    genres TEXT,
+    tropes TEXT,
     description TEXT,
+    description_source TEXT,
+    description_attribution TEXT,
+    description_url TEXT,
     cover_url TEXT,
     excerpt TEXT,
     excerpt_source TEXT,
@@ -77,8 +84,8 @@ CREATE TABLE IF NOT EXISTS review_cache (
 );
 """
 
-JSON_FIELDS = {"subjects", "style", "imprint", "ratings", "content_flags"}
-LIST_FIELDS = {"subjects", "content_flags"}
+JSON_FIELDS = {"subjects", "genres", "tropes", "style", "imprint", "ratings", "content_flags"}
+LIST_FIELDS = {"subjects", "genres", "tropes", "content_flags"}
 
 
 def connect(path: Path | str | None = None) -> sqlite3.Connection:
@@ -92,6 +99,20 @@ def connect(path: Path | str | None = None) -> sqlite3.Connection:
 
 def init(conn: sqlite3.Connection) -> None:
     conn.executescript(SCHEMA)
+
+    # CREATE TABLE IF NOT EXISTS leaves an existing table untouched, so a
+    # database written by an earlier version keeps the old columns. Add what
+    # is missing rather than making anyone rebuild their shelf.
+    existing = {row["name"] for row in conn.execute("PRAGMA table_info(books)")}
+    for column, definition in (
+        ("genres", "TEXT"), ("tropes", "TEXT"),
+        ("description_source", "TEXT"),
+        ("description_attribution", "TEXT"),
+        ("description_url", "TEXT"),
+    ):
+        if column not in existing:
+            conn.execute(f"ALTER TABLE books ADD COLUMN {column} {definition}")
+
     conn.commit()
 
 
@@ -119,6 +140,15 @@ def _row_to_book(row: sqlite3.Row) -> Book:
 
 
 def upsert_book(conn: sqlite3.Connection, book: Book) -> Book:
+    # Derived here rather than by every caller, so a book cannot reach the
+    # database without genres while its subjects say plainly what it is.
+    if not book.genres:
+        book.genres = derive_genres(book.subjects, book.description or "")
+    if not book.tropes:
+        book.tropes = derive_tropes(
+            book.subjects, book.description or "", book.title or ""
+        )
+
     if book.isbn13:
         existing = conn.execute(
             "SELECT id FROM books WHERE isbn13 = ?", (book.isbn13,)

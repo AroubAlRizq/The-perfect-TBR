@@ -45,7 +45,7 @@ DUMP_DIR = DATA_DIR / "dumps"
 CACHE_DIR = DATA_DIR / "gutenberg_cache"
 STATE_PATH = DATA_DIR / "build_state.json"
 
-STAGES = ["seed", "gutenberg", "openlibrary", "ratings", "report"]
+STAGES = ["seed", "gutenberg", "openlibrary", "ratings", "repair", "report"]
 
 PRESETS = {
     "quick": {
@@ -167,6 +167,12 @@ def stage_openlibrary(conn, args, state) -> None:
         print("  skipped")
         return
 
+    # Authors first. Works reference authors by key, and without the names
+    # every promoted book ends up credited to nobody.
+    authors_path = openlibrary.fetch_dump("authors", DUMP_DIR, force=args.redo)
+    names = openlibrary.ingest_authors(conn, authors_path, limit=args.openlibrary_limit)
+    print(f"  {names:,} author names loaded")
+
     works_path = openlibrary.fetch_dump("works", DUMP_DIR, force=args.redo)
     kept = openlibrary.ingest_works(conn, works_path, limit=args.openlibrary_limit)
     print(f"  {kept:,} fiction works staged")
@@ -179,7 +185,7 @@ def stage_openlibrary(conn, args, state) -> None:
     print(f"  {added:,} books promoted into the corpus")
 
     if not args.keep_dumps:
-        for path in (works_path, editions_path):
+        for path in (authors_path, works_path, editions_path):
             path.unlink(missing_ok=True)
         print("  dumps removed (pass --keep-dumps to keep them)")
 
@@ -195,6 +201,92 @@ def stage_ratings(conn, args, state) -> None:
     if not args.keep_dumps:
         path.unlink(missing_ok=True)
     state.mark("ratings", updated=updated)
+
+
+def stage_repair(conn, args, state) -> None:
+    """
+    Fix books left without an author by an earlier build.
+
+    Cheap to run and a no-op on a healthy corpus, so it sits in the default
+    stage list rather than being something you have to know about.
+    """
+    banner("Repair")
+    missing = conn.execute(
+        "SELECT COUNT(*) AS n FROM books WHERE author IS NULL OR author = ''"
+    ).fetchone()["n"]
+
+    if not missing:
+        print("  every book has an author, nothing to do")
+        state.mark("repair", fixed=0)
+        return
+
+    print(f"  {missing:,} books have no author")
+    fixed = 0
+
+    # Two routes to the same answer, with very different costs. The authors
+    # dump is ~780 MB; the API is one small request per book. Below the
+    # threshold the API wins by a wide margin, and it also works when the
+    # staging tables are absent or were written before author keys were
+    # stored — which is the situation any corpus built by an earlier version
+    # is actually in.
+    use_api = args.author_source == "api" or (
+        args.author_source == "auto" and missing <= args.api_threshold
+    )
+
+    if use_api:
+        estimate = missing * 2 * 0.4 / 60
+        print(f"  resolving via the Open Library API, roughly {estimate:.0f} minutes")
+        print(f"  (pass --author-source dump to download the {'780MB'} dump instead)")
+        fixed = openlibrary.backfill_authors_via_api(conn, min_gap=args.min_gap * 0.4)
+    else:
+        print("  too many to resolve one at a time, using the authors dump")
+        staged = conn.execute(
+            "SELECT COUNT(*) AS n FROM sqlite_master "
+            "WHERE type='table' AND name='ol_authors'"
+        ).fetchone()["n"]
+        have_names = 0
+        if staged:
+            have_names = conn.execute(
+                "SELECT COUNT(*) AS n FROM ol_authors"
+            ).fetchone()["n"]
+
+        if not have_names:
+            path = openlibrary.fetch_dump("authors", DUMP_DIR, force=False)
+            have_names = openlibrary.ingest_authors(conn, path)
+            print(f"  {have_names:,} author names loaded")
+            if not args.keep_dumps:
+                path.unlink(missing_ok=True)
+
+        fixed = openlibrary.backfill_authors(conn)
+
+        # The dump route depends on staged author keys, which a corpus built
+        # by an older version will not have. Fall back rather than declaring
+        # success on nothing.
+        if fixed == 0:
+            print("  no author keys were staged, falling back to the API")
+            fixed = openlibrary.backfill_authors_via_api(
+                conn, min_gap=args.min_gap * 0.4
+            )
+
+    print(f"  {fixed:,} books repaired")
+
+    remaining = conn.execute(
+        "SELECT COUNT(*) AS n FROM books WHERE author IS NULL OR author = ''"
+    ).fetchone()["n"]
+
+    if remaining:
+        print(f"  {remaining:,} still unresolved")
+        if args.drop_unfixable:
+            cursor = conn.execute(
+                "DELETE FROM books WHERE (author IS NULL OR author = '') "
+                "AND provisional = 1 AND id NOT IN (SELECT book_id FROM events)"
+            )
+            conn.commit()
+            print(f"  {cursor.rowcount:,} unfixable records removed")
+        else:
+            print("  pass --drop-unfixable to remove them")
+
+    state.mark("repair", complete=remaining == 0, fixed=fixed, remaining=remaining)
 
 
 def stage_report(conn, args, state) -> None:
@@ -215,6 +307,10 @@ def stage_report(conn, args, state) -> None:
     print(f"  with an ISBN          {with_isbn:,}")
     print(f"  with a rating         {with_rating:,}")
     print(f"  translated            {translated:,}")
+
+    nameless = sum(1 for b in books if not (b.author or "").strip())
+    if nameless:
+        print(f"  MISSING AN AUTHOR     {nameless:,}  <- run: python build.py --stages repair")
 
     if measured:
         densities = [b.style.get("prose_density", 0) for b in measured]
@@ -241,6 +337,7 @@ STAGE_FUNCTIONS = {
     "gutenberg": stage_gutenberg,
     "openlibrary": stage_openlibrary,
     "ratings": stage_ratings,
+    "repair": stage_repair,
     "report": stage_report,
 }
 
@@ -279,6 +376,15 @@ def parse_args() -> argparse.Namespace:
     group.add_argument("--min-gap", type=float, default=1.0,
                        help="seconds between Gutenberg requests (default 1.0)")
     group.add_argument("--keep-dumps", action="store_true")
+    group.add_argument("--author-source", choices=["auto", "api", "dump"],
+                       default="auto",
+                       help="how repair resolves missing authors (default auto: "
+                            "API for small numbers, dump for large)")
+    group.add_argument("--api-threshold", type=int, default=3000,
+                       help="above this many missing authors, auto uses the dump")
+    group.add_argument("--drop-unfixable", action="store_true",
+                       help="during repair, delete provisional books that still "
+                            "have no author and are not on anyone's shelf")
     group.add_argument("--no-cache", action="store_true",
                        help="do not keep downloaded Gutenberg texts on disk")
 

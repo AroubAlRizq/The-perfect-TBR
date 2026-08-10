@@ -129,7 +129,12 @@ class Book:
     series: str | None = None
     series_position: float | None = None
     subjects: list[str] = field(default_factory=list)
+    genres: list[str] = field(default_factory=list)
+    tropes: list[str] = field(default_factory=list)
     description: str | None = None
+    description_source: str | None = None
+    description_attribution: str | None = None
+    description_url: str | None = None
     cover_url: str | None = None
 
     excerpt: str | None = None

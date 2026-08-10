@@ -13,6 +13,7 @@ const state = {
   shelf: [],
   counts: {},
   searchTimer: null,
+  genres: new Set(),
 };
 
 /* Public domain, first published 1813. Here so the page is never a blank
@@ -57,6 +58,20 @@ const escapeHtml = (value) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 const countWords = (text) => (text.trim().match(/\b[\w'-]+\b/g) || []).length;
+
+/* ── Theme ────────────────────────────────────────────────────────── */
+
+/* localStorage is fine here: this runs on the reader's own machine against
+   their own server, not in a sandboxed embed. */
+function applyTheme(name) {
+  document.documentElement.dataset.theme = name;
+  $("#themeToggle").textContent = name === "dark" ? "Light" : "Dark";
+  try { localStorage.setItem("readerprint-theme", name); } catch { /* private mode */ }
+}
+
+$("#themeToggle").addEventListener("click", () => {
+  applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+});
 
 /* ── Tabs ─────────────────────────────────────────────────────────── */
 
@@ -166,6 +181,7 @@ function flagsFor(book) {
   if (book.translated) flags.push({ text: book.translator ? `Tr. ${book.translator}` : "Translated", kind: "" });
   if (book.tier && book.tier !== "unknown") flags.push({ text: book.tier_label, kind: "" });
   if (book.web_origin) flags.push({ text: "Web serial origin", kind: "caution" });
+  (book.tropes || []).slice(0, 2).forEach((t) => flags.push({ text: t, kind: "trope" }));
   if (book.provisional) flags.push({ text: "Not yet measured", kind: "provisional" });
   return flags;
 }
@@ -415,6 +431,20 @@ async function loadRecommendations() {
   const params = new URLSearchParams({ limit: "12", diversity: $("#filterDiversity").value });
   if ($("#filterPov").value) params.set("pov", $("#filterPov").value);
   if ($("#filterLength").value) params.set("max_length", $("#filterLength").value);
+  /* Evidence and Spread are separate axes and stay separate. Evidence is how
+     much of the list must come from books whose prose has actually been
+     measured; Spread is how far the recommender roams from your centre of
+     gravity. Folding one into the other would mean "close to my taste" also
+     silently meant "public domain only", which collides with the year
+     filter. */
+  const evidence = $("#filterMeasured").value;
+  if (evidence === "only") params.set("measured_only", "true");
+  else if (evidence) params.set("measured_share", evidence);
+
+  const year = Number($("#filterYear").value);
+  if (year > Number($("#filterYear").min)) params.set("min_year", String(year));
+
+  if (state.genres.size) params.set("genres", [...state.genres].join(","));
 
   $("#recsMessage").textContent = "Working…";
   $("#recsList").innerHTML = "";
@@ -426,11 +456,34 @@ async function loadRecommendations() {
       return;
     }
     if (!data.recommendations.length) {
-      $("#recsMessage").textContent = "No book in the corpus clears those filters. Try loosening one.";
+      $("#recsMessage").textContent = state.genres.size
+        ? `Nothing in ${[...state.genres].join(" or ")} clears the other filters. `
+          + `Try adding a genre or loosening one.`
+        : $("#filterMeasured").value === "only"
+          ? "No measured book clears those filters. Run: python build.py --stages gutenberg"
+          : "No book in the corpus clears those filters. Try loosening one.";
       return;
     }
-    $("#recsMessage").textContent = "";
-    $("#recsList").innerHTML = data.recommendations.map(renderRec).join("");
+    const measured = data.corpus_measured ?? 0;
+    const size = data.corpus_size ?? 0;
+    $("#recsMessage").textContent =
+      measured < size * 0.25 && size > 500
+        ? `Only ${measured.toLocaleString()} of ${size.toLocaleString()} books have measured prose. `
+          + `Unmeasured books are matched on subject alone and ranked lower.`
+        : "";
+
+    const sections = data.sections || [];
+    if (sections.length) {
+      $("#recsList").innerHTML = sections.map(renderSection).join("");
+      $("#jumpBar").hidden = false;
+      $("#jumpBar").innerHTML = sections.map((section) =>
+        `<a href="#sec-${section.key}">${escapeHtml(section.title)} `
+        + `<span style="opacity:.6">${section.count}</span></a>`).join("");
+    } else {
+      $("#jumpBar").hidden = true;
+      $("#recsList").innerHTML =
+        `<div class="rec-grid">${data.recommendations.map(renderRec).join("")}</div>`;
+    }
     requestAnimationFrame(() => {
       $$("#recsList .meter-fill").forEach((f) => { f.style.width = `${f.dataset.pct}%`; });
     });
@@ -439,33 +492,134 @@ async function loadRecommendations() {
   }
 }
 
+/* ── Genre filter ─────────────────────────────────────────────────── */
+
+async function initGenres() {
+  let data;
+  try {
+    data = await api("/api/genres");
+  } catch {
+    return;
+  }
+
+  /* Only offer genres that exist in this corpus. Showing the full taxonomy
+     would list twelve options where eight return nothing, which teaches
+     people the filter is broken. */
+  const available = data.genres.filter((g) => g.count > 0);
+  if (!available.length) return;
+
+  $("#genreBar").hidden = false;
+  $("#genreChips").innerHTML = available.map((entry) => `
+    <button class="genre-chip" data-genre="${escapeHtml(entry.genre)}">
+      ${escapeHtml(entry.genre)}
+      <span class="genre-count">${entry.count}</span>
+    </button>`).join("");
+}
+
+function paintGenres() {
+  $$("#genreChips .genre-chip").forEach((chip) => {
+    chip.classList.toggle("is-on", state.genres.has(chip.dataset.genre));
+  });
+  $("#clearGenres").hidden = state.genres.size === 0;
+}
+
+$("#genreChips").addEventListener("click", (event) => {
+  const chip = event.target.closest(".genre-chip");
+  if (!chip) return;
+  const genre = chip.dataset.genre;
+  state.genres.has(genre) ? state.genres.delete(genre) : state.genres.add(genre);
+  paintGenres();
+  loadRecommendations();
+});
+
+$("#clearGenres").addEventListener("click", () => {
+  state.genres.clear();
+  paintGenres();
+  loadRecommendations();
+});
+
+
+function renderSection(section) {
+  return `
+    <section class="rec-section" id="sec-${section.key}">
+      <div class="rec-section-head">
+        <h3>${escapeHtml(section.title)}</h3>
+        <span class="rec-section-count">${section.count}</span>
+        <p class="rec-section-blurb">${escapeHtml(section.blurb)}${
+          section.hidden ? ` <span style="opacity:.7">${section.hidden} more held back.</span>` : ""
+        }</p>
+      </div>
+      <div class="rec-grid">${section.recommendations.map(renderRec).join("")}</div>
+    </section>`;
+}
+
+
 function renderRec(rec) {
   const book = rec.book;
-  const density = book.prose_density ?? 0;
   const reasons = rec.reasons.map((r) => `<li>${escapeHtml(r)}</li>`).join("");
-  const cautions = rec.cautions.map((c) => `<li class="is-caution">${escapeHtml(c)}</li>`).join("");
+
+  /* The density row already says "Prose not measured", so repeating it as a
+     caution states the same fact twice on every unmeasured card. */
+  const cautions = rec.cautions
+    .filter((c) => !c.startsWith("Prose not measured"))
+    .map((c) => `<li class="is-caution">${escapeHtml(c)}</li>`)
+    .join("");
+
+  /* An unmeasured book has no density. Drawing an empty bar labelled zero
+     reads as "this prose scored nothing" rather than "we have not looked",
+     which is the opposite of what the app is for. */
+  const density = book.prose_density;
+  const densityRow = book.provisional || density === null || density === undefined
+    ? `<div class="rec-density"><span class="rec-density-label">Prose not measured</span></div>`
+    : `<div class="rec-density">
+         <span class="rec-density-label">Density ${Math.round(density)}</span>
+         <div class="meter"><div class="meter-fill" data-pct="${density}"></div></div>
+       </div>`;
 
   return `
-    <article class="rec" data-book="${book.id}" tabindex="0">
+    <article class="rec ${book.provisional ? "is-provisional" : "is-measured"}"
+             data-book="${book.id}" tabindex="0">
       <div class="rec-head">
         <div>
           <div class="rec-title">${escapeHtml(book.title)}</div>
-          <div class="rec-author">${escapeHtml(book.author || "Unknown")}${book.year ? " · " + book.year : ""}</div>
+          <div class="rec-author">${escapeHtml(book.author || "Author not recorded")}${book.year ? " · " + book.year : ""}</div>
         </div>
         <div class="rec-score">match ${(rec.score * 100).toFixed(0)}</div>
       </div>
-      <div class="rec-density">
-        <span class="rec-density-label">Density ${Math.round(density)}</span>
-        <div class="meter"><div class="meter-fill" data-pct="${density}"></div></div>
-      </div>
+      ${densityRow}
       <div class="flags">${renderFlags(book)}</div>
       <ul class="rec-reasons">${reasons}${cautions}</ul>
     </article>`;
 }
 
 $("#refreshRecs").addEventListener("click", loadRecommendations);
-["filterPov", "filterLength", "filterDiversity"].forEach((id) =>
+["filterPov", "filterLength", "filterDiversity", "filterMeasured"].forEach((id) =>
   $(`#${id}`).addEventListener("change", loadRecommendations));
+
+const yearSlider = $("#filterYear");
+
+function paintYear() {
+  const value = Number(yearSlider.value);
+  $("#yearValue").textContent =
+    value <= Number(yearSlider.min) ? "Any" : String(value);
+}
+
+/* Repaint on drag, but only refetch on release. Firing a request per pixel
+   of slider travel would hammer the endpoint for no benefit. */
+yearSlider.addEventListener("input", paintYear);
+yearSlider.addEventListener("change", loadRecommendations);
+
+async function initYearSlider() {
+  try {
+    const range = await api("/api/year-range");
+    if (range.min && range.max) {
+      yearSlider.min = String(range.min);
+      yearSlider.max = String(range.max);
+      yearSlider.value = String(range.min);
+    }
+  } catch { /* leave the defaults in place */ }
+  paintYear();
+}
 
 $("#recsList").addEventListener("click", (event) => {
   const card = event.target.closest(".rec");
@@ -503,6 +657,16 @@ async function openDrawer(bookId) {
     ? `<div class="notice" style="margin-top:.7rem">${escapeHtml(book.web_origin_note || "Began as a web serial.")}</div>`
     : "";
 
+  const tropeTags = (book.tropes || []).length
+    ? `<div class="drawer-section">
+         <h4>Tropes detected</h4>
+         <div class="trope-list">${
+           book.tropes.map((t) => `<span class="trope">${escapeHtml(t)}</span>`).join("")
+         }</div>
+         <p class="trope-note">Inferred from the blurb and subject tags, not confirmed by a reader.</p>
+       </div>`
+    : "";
+
   const excerpt = book.excerpt
     ? `<div class="drawer-section">
          <h4>The prose itself</h4>
@@ -520,7 +684,12 @@ async function openDrawer(bookId) {
       book.publisher ? " · " + escapeHtml(book.publisher) : ""}</p>
     <div class="flags">${renderFlags(book)}</div>
     ${provisional}${webOrigin}
-    ${book.style_note ? `<p style="margin-top:1.1rem">${escapeHtml(book.style_note)}</p>` : ""}
+    <div class="drawer-section">
+      <h4>What it is about</h4>
+      <div id="synopsisSlot" class="synopsis is-loading">Looking for a synopsis…</div>
+    </div>
+    <div id="tropeSlot">${tropeTags}</div>
+    ${book.style_note ? `<p class="style-note">${escapeHtml(book.style_note)}</p>` : ""}
     ${excerpt}
     <div class="drawer-section">
       <h4>Measurements</h4>
@@ -539,6 +708,8 @@ async function openDrawer(bookId) {
   $("#drawer").hidden = false;
   $("#scrim").hidden = false;
   document.body.style.overflow = "hidden";
+
+  loadSynopsis(book.id);
 
   $("#drawerMeasure").addEventListener("click", async (event) => {
     const text = $("#drawerExcerpt").value;
@@ -568,6 +739,54 @@ async function openDrawer(bookId) {
   });
 }
 
+/* Fetched after the drawer paints rather than before it opens. The panel
+   should appear instantly on click; a synopsis that needs a network round
+   trip must not hold up everything already known about the book. */
+async function loadSynopsis(bookId) {
+  const slot = $("#synopsisSlot");
+  if (!slot) return;
+  try {
+    const data = await api(`/api/books/${bookId}/synopsis`);
+    if (!slot.isConnected) return;
+    slot.classList.remove("is-loading");
+
+    if (!data.synopsis) {
+      slot.classList.add("is-empty");
+      slot.textContent = data.note || "No synopsis available.";
+    } else {
+      /* Attribution is not decoration: Wikipedia text is CC BY-SA and the
+         licence requires crediting it wherever it appears. */
+      const credit = data.attribution
+        ? `<div class="synopsis-credit">${
+            data.url
+              ? `<a href="${escapeHtml(data.url)}" target="_blank" rel="noopener">${escapeHtml(data.attribution)}</a>`
+              : escapeHtml(data.attribution)
+          }</div>`
+        : "";
+      slot.innerHTML = `<p class="synopsis-text">${escapeHtml(data.synopsis)}</p>${credit}`;
+    }
+
+    /* The blurb is the richest trope evidence there is, so tags can appear
+       or improve once it arrives. */
+    const slotTropes = $("#tropeSlot");
+    if (slotTropes && (data.tropes || []).length && !slotTropes.innerHTML.trim()) {
+      slotTropes.innerHTML = `
+        <div class="drawer-section">
+          <h4>Tropes detected</h4>
+          <div class="trope-list">${
+            data.tropes.map((t) => `<span class="trope">${escapeHtml(t)}</span>`).join("")
+          }</div>
+          <p class="trope-note">Inferred from the blurb and subject tags, not confirmed by a reader.</p>
+        </div>`;
+    }
+  } catch {
+    if (!slot.isConnected) return;
+    slot.classList.remove("is-loading");
+    slot.textContent = "Could not reach a synopsis source.";
+  }
+}
+
+
 function closeDrawer() {
   $("#drawer").hidden = true;
   $("#scrim").hidden = true;
@@ -583,8 +802,14 @@ document.addEventListener("keydown", (event) => {
 /* ── Boot ─────────────────────────────────────────────────────────── */
 
 (async function start() {
+  let stored = null;
+  try { stored = localStorage.getItem("readerprint-theme"); } catch { /* ignore */ }
+  applyTheme(stored || "dark");
+
   try {
     state.meta = await api("/api/meta");
+    await initYearSlider();
+    await initGenres();
     $("#specimenText").value = DEFAULT_SPECIMEN;
     $("#wordCounter").textContent = `${countWords(DEFAULT_SPECIMEN)} words`;
     await measureSpecimen();

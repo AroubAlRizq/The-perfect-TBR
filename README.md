@@ -45,10 +45,29 @@ python build.py --status    what has completed so far
 | Stage | Source | What it gives you |
 |---|---|---|
 | `seed` | bundled | 90 curated books, instantly |
+| `repair` | — | fixes books left without an author by an earlier build |
 | `gutenberg` | Project Gutenberg | public domain texts, **measured for real** |
 | `openlibrary` | monthly dumps | metadata for tens of thousands of books |
 | `ratings` | Open Library | aggregate reader ratings |
 | `report` | — | what the corpus now contains |
+
+If a build produced books credited to nobody, with a density of zero and no
+distinguishing reasons, that is an earlier version of the `openlibrary` stage
+promoting works before author names were loaded. Fix it in place:
+
+```bash
+python build.py --stages repair
+```
+
+Nothing needs rebuilding. Repair picks the cheaper of two routes: for a few
+hundred books it resolves each one from the Open Library API in a couple of
+minutes, and only falls back to the 780 MB authors dump above a few thousand
+(`--author-source` and `--api-threshold` override the choice). Add
+`--drop-unfixable` to delete records that still have no author and sit on
+nobody's shelf.
+
+Large downloads retry automatically and resume from the bytes already on
+disk, so a dropped connection costs seconds rather than the whole transfer.
 
 Gutenberg runs before Open Library on purpose. It is the only source that
 produces measured books, and measured books are what make everything
@@ -62,6 +81,71 @@ python build.py --stages gutenberg --gutenberg-limit 2000
 python build.py --stages openlibrary --promote-limit 50000
 python build.py --reset                  # start over
 ```
+
+### Where synopses come from
+
+Opening a book resolves a description through a chain, cheapest first:
+
+| Provider | What it gives | Licence |
+|---|---|---|
+| Google Books | publisher description | served for display by the API |
+| Open Library | community description | open data |
+| Wikipedia | plot summary | CC BY-SA, credited on screen |
+| custom | search snippet | optional, off by default |
+
+Wikipedia is the one that matters most, and not for the obvious reason. The
+measured half of the corpus is almost entirely public domain classics, and
+those are exactly the books the other two describe worst — a nineteenth
+century novel has no jacket copy anywhere, while Wikipedia has a full plot
+summary.
+
+The hard part is matching, not fetching. Searching Wikipedia for "Babel"
+returns the Tower of Babel; "Emma" returns a given name; "It" returns a
+disambiguation page. Attaching the wrong plot summary is worse than having
+none, because it looks authoritative and the reader cannot tell. So every
+candidate is scored against the book it claims to describe — author surname
+present, title overlap, vocabulary suggesting a work rather than a place or a
+concept — and anything below the threshold is discarded. In testing, the
+Tower of Babel ranks first in search for the obvious query and is correctly
+rejected.
+
+Wikipedia text is CC BY-SA, so the article and licence are credited wherever
+the synopsis appears. That credit is a licence condition, not decoration.
+
+A paid search provider can be slotted in as a last resort:
+
+```bash
+export READERPRINT_SEARCH_PROVIDER=brave   # or tavily
+export BRAVE_API_KEY=...
+```
+
+It is off unless configured, and only ever uses the search engine's own
+snippet. Fetching jacket copy from retailer or review pages would mean
+reproducing text this project has no licence to.
+
+### Evidence, and why it is not the same as Spread
+
+Two controls that look similar and are not:
+
+**Spread** is diversity — how far the recommender roams from your centre of
+gravity before it stops caring about redundancy.
+
+**Evidence** is how much of the list must come from books whose prose has
+actually been measured. Measured books are almost all public domain, because
+that is the text the law lets us read; everything else is matched on subject
+and metadata alone.
+
+It is tempting to collapse these into one dial, since measured books do tend
+to be better matches. Two reasons not to. Wanting close matches is not the
+same as wanting only pre-1930 books — a reader whose shelf is contemporary
+would get precisely the wrong answer. And it would silently break the year
+filter: "closest to my taste" plus "published since 2015" would return
+nothing at all, because the measured pool barely reaches 1929.
+
+So the two stay separate, and Evidence is a floor rather than a filter. If
+the measured pool runs dry it fills the remaining slots from the wider corpus
+instead of handing back a short list. `Measured prose only` is the hard
+version.
 
 ### Going large
 
@@ -91,8 +175,28 @@ sample chapter, a preview, anything you are deciding about.
 hand. Then set a verdict on each. For anything you abandoned or disliked,
 say why: the reason chips are what make the recommendations sharp.
 
-**Recommendations** — appear once three books are rated. Each card explains
-its own reasoning. Click through for the full measurements and an excerpt.
+**Recommendations** — appear once three books are rated. Results are grouped
+into sections so you can jump to what you are in the mood for rather than
+scrolling a flat list: more from writers you rated well, short enough for one
+sitting, in translation, off the algorithm, published recently, and so on.
+Every book sits in exactly one section. Click any card for a synopsis, the
+full measurements, detected tropes, and an excerpt. Filter by genre,
+narration, length, publication year, and how much of the list must come from
+books whose prose has actually been measured.
+
+Genre is derived from subject strings rather than stored by hand: Open Library
+and Gutenberg between them describe the same book as "Detective and mystery
+stories", "Crime -- Fiction", or "Fiction, mystery & detective", and all three
+reduce to one filterable genre. A book can hold up to three, selecting several
+means *or* rather than *and*, and a book whose subjects match nothing gets no
+genre rather than a guess. Each card
+explains its own reasoning; click through for full measurements and an
+excerpt.
+
+The interface is dark by default with a light theme in the top bar. Glow is
+used as a signal rather than decoration — anything that glows is a reading
+taken from real prose, so an unlit card is telling you the same thing its
+"Not yet measured" flag says in words.
 
 Getting the export:
 
@@ -206,6 +310,14 @@ snippet at display time, or prose you paste in yourself, which stays local.
 - The cliché lexicon is tuned toward English-language romance and web
   fiction. It under-reports stock phrasing in other genres.
 - Single user. `?user=` exists but is not authentication.
+- Trope tags are inferred from blurb text, not catalogued, so they are
+  labelled as detected rather than confirmed. Books without a synopsis
+  usually get none until one is fetched — opening a book fetches it.
+- Genre and trope inference is English-only.
+- A large Open Library import will outnumber measured books many times over.
+  Unmeasured books rank lower and are labelled, and the recommendations view
+  has a "Measured prose only" filter, but the corpus stays lopsided until the
+  Gutenberg stage has run properly.
 
 ---
 
@@ -226,6 +338,10 @@ readerprint/
   ingest.py                Goodreads and StoryGraph CSV import
   sources.py               Open Library, Google Books, Gutenberg
   corpus.py                seed loading and enrichment
+  genres.py                subject strings reduced to a filterable taxonomy
+  tropes.py                trope tags inferred from blurbs and subjects
+  synopsis.py              provider chain + match scoring for descriptions
+  sections.py              grouping recommendations, one book per section
   models.py                Book, ReadingEvent, DNF taxonomy
   db.py                    SQLite
 static/                    interface, no build step
@@ -246,6 +362,7 @@ committing measured values helps everyone.
 ```bash
 python tests/test_readerprint.py     # core: style, imprint, reviews, import, recommender
 python tests/test_bulk.py            # bulk pipeline, against offline fixtures
+python tests/test_synopsis.py        # provider chain and match scoring
 ```
 
 The bulk tests build small files in the real Open Library and Gutenberg

@@ -25,6 +25,7 @@ from readerprint.models import (
     TENSE_LABELS, VERDICTS, Book, ReadingEvent,
 )
 from readerprint.recommend import build_profile, build_space, recommend
+from readerprint.sections import build_sections
 from readerprint.reviews import Review, rank_reviews, summarise_ratings
 from readerprint.style import analyse, describe
 
@@ -65,6 +66,13 @@ async def lifespan(app: FastAPI):
             print(f"Seeded {added} books on first run.")
         except FileNotFoundError:
             print("No seed file. Run: python scripts/make_seed.py")
+    # Books written before the genres column existed have none. Backfilling
+    # here keeps the filter honest without anyone having to run a command.
+    from readerprint.corpus import backfill_genres
+    filled = backfill_genres(conn)
+    if filled:
+        print(f"Derived genres for {filled:,} existing books.")
+
     app.state.conn = conn
     yield
     conn.close()
@@ -108,12 +116,16 @@ def book_payload(book: Book, full: bool = False) -> dict:
         "translated": book.is_translated,
         "translator": book.translator,
         "subjects": (book.subjects or [])[:6],
+        "genres": book.genres or [],
+        "tropes": book.tropes or [],
         "rating": (book.ratings or {}).get("weighted_score"),
         "hype_note": (book.ratings or {}).get("hype_note"),
     }
     if full:
         payload.update({
             "description": book.description,
+        "description_attribution": book.description_attribution,
+        "description_url": book.description_url,
             "excerpt": book.excerpt,
             "excerpt_source": book.excerpt_source,
             "excerpt_licence": book.excerpt_licence,
@@ -204,6 +216,75 @@ def book_detail(request: Request, book_id: str):
     if not book:
         raise HTTPException(404, "No book with that id.")
     return book_payload(book, full=True)
+
+
+@app.get("/api/books/{book_id}/synopsis")
+def synopsis(request: Request, book_id: str, refresh: bool = False):
+    """
+    A short description of what the book is about.
+
+    Resolved lazily through a chain of providers and then stored. Fetching
+    during the bulk import instead would mean a hundred thousand extra
+    requests for text most books will never be asked about.
+    """
+    conn = conn_of(request)
+    book = db.get_book(conn, book_id)
+    if not book:
+        raise HTTPException(404, "No book with that id.")
+
+    if book.description and not refresh:
+        return {
+            "synopsis": book.description,
+            "source": book.description_source or "stored",
+            "attribution": book.description_attribution,
+            "url": book.description_url,
+            "tropes": book.tropes or [],
+        }
+
+    from readerprint import synopsis as synopsis_chain
+
+    found = synopsis_chain.resolve(
+        title=book.title,
+        author=book.author or "",
+        isbn=book.isbn13,
+        work_key=book.openlibrary_key,
+        year=book.year,
+    )
+
+    if not found:
+        return {
+            "synopsis": None,
+            "source": None,
+            "tropes": book.tropes or [],
+            "note": (
+                "No synopsis found. Google Books, Open Library and Wikipedia "
+                "were all checked."
+            ),
+        }
+
+    book.description = found.text
+    book.description_source = found.source
+    book.description_attribution = found.attribution
+    book.description_url = found.url
+
+    # A blurb is the richest trope evidence there is, so the inference is
+    # redone now that one finally exists.
+    from readerprint.genres import derive as derive_genres
+    from readerprint.tropes import derive as derive_tropes
+
+    book.tropes = derive_tropes(book.subjects, book.description, book.title)
+    if not book.genres:
+        book.genres = derive_genres(book.subjects, book.description)
+    db.upsert_book(conn, book)
+
+    return {
+        "synopsis": book.description,
+        "source": found.source,
+        "attribution": found.attribution,
+        "url": found.url,
+        "confidence": found.confidence,
+        "tropes": book.tropes,
+    }
 
 
 class ExcerptIn(BaseModel):
@@ -393,6 +474,34 @@ def profile(request: Request, user: str = "local"):
     }
 
 
+@app.get("/api/genres")
+def genre_list(request: Request):
+    """Genres present in the corpus, with counts, for building the filter."""
+    from readerprint.genres import ALL_GENRES, label_counts
+
+    books = db.all_books(conn_of(request))
+    counts = label_counts(books)
+    untagged = sum(1 for b in books if not b.genres)
+    return {
+        "genres": counts,
+        "all_genres": ALL_GENRES,
+        "untagged": untagged,
+        "total": len(books),
+    }
+
+
+@app.get("/api/year-range")
+def year_range(request: Request):
+    """Actual span of publication years in the corpus, for the year filter."""
+    row = conn_of(request).execute(
+        "SELECT MIN(year) AS lo, MAX(year) AS hi, COUNT(year) AS n "
+        "FROM books WHERE year IS NOT NULL AND year > 1000"
+    ).fetchone()
+    return {
+        "min": row["lo"], "max": row["hi"], "with_year": row["n"],
+    }
+
+
 @app.get("/api/recommendations")
 def recommendations(
     request: Request,
@@ -403,6 +512,15 @@ def recommendations(
     max_length: int | None = None,
     pov: str | None = Query(None, description="Comma-separated: first,third"),
     exclude_flags: str | None = None,
+    measured_only: bool = False,
+    measured_share: float | None = Query(
+        None, ge=0.0, le=1.0,
+        description="Floor on the share of results drawn from measured books",
+    ),
+    min_year: int | None = None,
+    max_year: int | None = None,
+    genres: str | None = Query(None, description="Comma-separated genre names"),
+    grouped: bool = True,
 ):
     conn = conn_of(request)
     space = get_space(conn)
@@ -419,32 +537,53 @@ def recommendations(
             "usable": False,
         }
 
+    # Ask for a wider pool than will be shown. Sections need enough material
+    # to fill more than one heading, and the ranked list alone would leave
+    # most sections empty.
+    pool_size = limit * 3 if grouped else limit
+
     results = recommend(
         space,
         taste,
         exclude_ids={e.book_id for e in events},
-        limit=limit,
+        limit=pool_size,
         diversity=diversity,
         min_length=min_length,
         max_length=max_length,
+        measured_only=measured_only,
+        measured_share=measured_share,
+        min_year=min_year,
+        max_year=max_year,
+        allowed_genres={g.strip() for g in genres.split(",") if g.strip()} if genres else None,
         allowed_pov=set(pov.split(",")) if pov else None,
         exclude_flags=set(exclude_flags.split(",")) if exclude_flags else None,
     )
 
-    return {
+    measured_total = sum(1 for b in space.books if not b.provisional)
+
+    def serialise(r) -> dict:
+        return {
+            "book": book_payload(r.book, full=True),
+            "score": round(r.score, 4),
+            "affinity": round(r.affinity, 4),
+            "penalty": r.penalty,
+            "reasons": r.reasons,
+            "cautions": r.cautions,
+        }
+
+    payload = {
         "usable": True,
-        "recommendations": [
-            {
-                "book": book_payload(r.book, full=True),
-                "score": round(r.score, 4),
-                "affinity": round(r.affinity, 4),
-                "penalty": r.penalty,
-                "reasons": r.reasons,
-                "cautions": r.cautions,
-            }
-            for r in results
-        ],
+        "corpus_measured": measured_total,
+        "corpus_size": len(space.books),
+        "total": len(results),
+        "recommendations": [serialise(r) for r in results[:limit]],
     }
+
+    if grouped:
+        sections = build_sections(results, taste.loved_authors)
+        payload["sections"] = [s.as_dict(serialise) for s in sections]
+
+    return payload
 
 
 # --------------------------------------------------------------------------

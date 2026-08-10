@@ -133,13 +133,50 @@ def human_size(n: float) -> str:
 # Download
 # --------------------------------------------------------------------------
 
-def download(url: str, target: Path, force: bool = False, timeout: int = 60) -> Path:
+def download(url: str, target: Path, force: bool = False, timeout: int = 60,
+             attempts: int = 8) -> Path:
     """
     Fetch a file, resuming a partial download where the server allows it.
 
     Writes to a .part file and renames on success, so an interrupted run can
     never leave a truncated file that looks complete to the next stage.
+
+    A multi-gigabyte transfer over a domestic connection will drop. It is not
+    a question of whether. So a broken connection is retried automatically
+    from the byte already on disk rather than being raised at the caller, who
+    can only start again from zero.
     """
+    last_error: Exception | None = None
+
+    for attempt in range(1, attempts + 1):
+        try:
+            return _download_once(url, target, force and attempt == 1, timeout)
+        except (requests.exceptions.ChunkedEncodingError,
+                requests.exceptions.ConnectionError,
+                requests.exceptions.Timeout,
+                requests.exceptions.HTTPError) as error:
+            # A 4xx will never succeed on retry; only wait out transient ones.
+            status = getattr(getattr(error, "response", None), "status_code", None)
+            if status and 400 <= status < 500 and status not in (408, 429):
+                raise
+
+            last_error = error
+            if attempt == attempts:
+                break
+
+            pause = min(60, 2 ** attempt)
+            print(f"\n  connection dropped ({type(error).__name__}), "
+                  f"retry {attempt}/{attempts - 1} in {pause}s")
+            time.sleep(pause)
+
+    raise RuntimeError(
+        f"Gave up on {target.name} after {attempts} attempts. "
+        f"The partial file is kept, so rerunning resumes from there. "
+        f"Last error: {last_error}"
+    )
+
+
+def _download_once(url: str, target: Path, force: bool, timeout: int) -> Path:
     target.parent.mkdir(parents=True, exist_ok=True)
     part = target.with_suffix(target.suffix + ".part")
 
@@ -181,6 +218,11 @@ def download(url: str, target: Path, force: bool = False, timeout: int = 60) -> 
                 handle.write(chunk)
                 bar.advance(len(chunk))
     bar.close()
+
+    if total and part.stat().st_size < total:
+        raise requests.exceptions.ChunkedEncodingError(
+            f"got {part.stat().st_size} of {total} bytes"
+        )
 
     part.rename(target)
     return target
